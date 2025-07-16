@@ -4,7 +4,7 @@
 
 Start by cloning the repository and navigating inside
 ```
-git clone git@github.com:jburzy/gnn-plots.git
+git clone git@github.com:giuliacossutti/gnn-plots.git
 cd gnn-plots
 ```
 
@@ -21,3 +21,10 @@ gnn-plots --config configs/base.yaml
 ```
 
 Take a look at the config and try to understand what it is doing :)
+
+
+## Source
+This repository is forked from jburzy/gnn-plots:
+```
+git clone git@github.com:jburzy/gnn-plots.git
+```
