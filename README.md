@@ -13,6 +13,8 @@ Then to install the package, simply run
 pip install -e .
 ```
 
+WARNING: please install puma-hep 0.4.4 or older to avoid compatibility issues
+
 ## Running
 
 To run the package, simply run

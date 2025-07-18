@@ -1,0 +1,53 @@
+output_dir: output
+
+samples: &samples
+  one:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/GN3ej-fold0_20240722-T162121/ckpts/epoch=010-val_loss=0.02672__test_pp_output_val.h5'
+    label: ""
+    reference: True
+    df_name: jets
+  # two:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/GN3ej-fold1_20240722-T164135/ckpts/epoch=009-val_loss=0.02734__test_pp_output_val.h5'
+  #   label: 'fold1 newPT'
+  #   reference: False
+  #   df_name: jets
+  # three:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+  #   label: 'fold0 old'
+  #   reference: True
+  #   df_name: jets
+  # four:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold1-gnn-count/GN2ej_5_20240613-T113800/ckpts/epoch=009-val_loss=0.02289__test_pp_output_val.h5'
+  #   label: 'fold1 old'
+  #   reference: False
+  #   df_name: jets
+
+style: &style
+  figsize: !!python/tuple [6, 4.5]  # figure sizes in this range work best
+  label_fontsize: 13
+  fontsize: 13
+  atlas_first_tag: "Simulation"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV, $51.8$ fb$^{-1}$"
+  atlas_fontsize: 14
+  ymin: 1
+  y_scale: 1.0
+  grid: False
+
+plots:
+  roc:
+    class: plotter.plot_classes.roc_plot.RocPlotBase
+    samples: *samples
+    file_name: roc.pdf
+    target_label: isDisplaced
+    range: !!python/tuple [0.95, 1, 100]
+    show_cuts: True  # choose whether to display your desired cuts
+    leg_inside: True
+    leg_fontsize: 12
+    reference_label: "nominal"
+    cut_values: [0.98]  # or None
+    style:
+      <<: *style
+      n_ratio_panels: 0
+      ylabel: "Background rejection "
+      xlabel: "EJ tagging efficiency "
+      y_scale: 1.3

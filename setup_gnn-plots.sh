@@ -7,3 +7,4 @@ pip install -e .
 
 # Export the specified path to the PATH environment variable
 export PATH=$PATH:/project/def-mdanning/rhall02/gnn-plots/.local/bin
+#export PATH=$PATH:/home/private/EmergingJetTagger/gnn-plots/
