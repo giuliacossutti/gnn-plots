@@ -1,7 +1,8 @@
 output_dir: output
 
 samples: &samples
-  GN3ej-fold0:
+   #comment GN3ej-fold0: for one or more inputs
+#  GN3ej-fold0:
     path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_val.h5'
     label: 'GN3ej-fold0'
     reference: True
@@ -10,13 +11,35 @@ samples: &samples
 style: &style
   ylabel: ""
   xlabel: ""
-  figsize: !!python/tuple [6.5, 6]
+  figsize: !!python/tuple [7, 5]
+  logy: True
+  use_atlas_tag: True
   atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
 
 plots:
+  # only one input
+  discrim: 
+    class: plotter.plot_classes.discrim_plot.DiscrimPlotBase
+    samples: *samples
+    low: 0.00
+    high: 1.00
+    dx: 0.01
+    file_name: ../plots/test_GN3ej-fold0/discrim_right.png
+    style:
+      <<: *style
+      n_ratio_panels: 1
+      ylabel: "Normalized number of jets"
+      xlabel: "GNN Discriminant"
+      y_scale: 1.3
+
+  # one or more inputs
   roc:
     class: plotter.plot_classes.roc_plot.RocPlotBase
+    atlas_first_tag: "Work In Progress"
     samples: *samples
     file_name: ../plots/test_GN3ej-fold0/roc.png
     show_cuts: True
@@ -33,3 +56,5 @@ plots:
       ylabel: "QCD rejection"
       xlabel: "EJ efficiency"
       y_scale: 1.4
+
+

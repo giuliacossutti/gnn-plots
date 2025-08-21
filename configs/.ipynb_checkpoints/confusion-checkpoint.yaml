@@ -1,0 +1,30 @@
+output_dir: output
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 6]
+  use_atlas_tag: False
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  conf_mat:
+    class: plotter.plot_classes.confusion_matrix_plot.ConfMatPlotBase
+    samples:
+      path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+      label: 'GN3ej'
+      df_name: tracks
+    task_type: track_origin # two options are track_origin, jet_classification
+    style:
+      <<: *style
+      xlabel: GN3ej prediction
+      ylabel: Truth labels
+      figsize: !!python/tuple [6,6]
+      show_entries: True
+      text_color_threshold: 0.6
+      colormap: GnBu
+      cbar_label: ""

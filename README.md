@@ -14,6 +14,9 @@ pip install -e .
 ```
 
 WARNING: please install puma-hep 0.4.4 or older to avoid compatibility issues
+```
+pip install puma-hep==0.4.4
+```
 
 ## Running
 

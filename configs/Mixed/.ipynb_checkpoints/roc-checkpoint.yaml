@@ -1,0 +1,41 @@
+output_dir: output
+
+samples: &samples
+  Zprime:
+    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_val.h5'
+    label: "Z' portal"
+    reference: True
+    df_name: jets
+#  Higgs:
+#    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/'
+#    label: 'Higgs portal'
+#    reference: False
+#    df_name: jets
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6.5, 6]
+  atlas_first_tag: "Work In Progress"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+
+plots:
+  roc:
+    class: plotter.plot_classes.roc_plot.RocPlotBase
+    samples: *samples
+    file_name: ../plots/Mixed/roc.png
+    target_label: isDisplaced
+    tagger_output: GN3ej-fold0
+    range: !!python/tuple [0.75, 1, 100]
+    leg_inside: True
+    leg_fontsize: 12
+    reference_label: "nominal"
+    show_cuts: True
+    cut_values: [0.98]  # or None
+    style:
+      <<: *style
+      n_ratio_panels: 1
+      ylabel: "QCD rejection"
+      xlabel: "EJ tagging efficiency"
+      y_scale: 1.4

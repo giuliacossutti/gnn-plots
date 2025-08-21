@@ -1,0 +1,66 @@
+output_dir: output
+
+samples: &samples
+  one:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/GN3ej-fold0_20240722-T162121/ckpts/epoch=010-val_loss=0.02672__test_pp_output_val.h5'
+    label: 'fold0 newPT'
+    reference: True
+    df_name: 'tracks'
+  two:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/GN3ej-fold1_20240722-T164135/ckpts/epoch=009-val_loss=0.02734__test_pp_output_val.h5'
+    label: 'fold1 newPT'
+    reference: False
+    df_name: 'tracks'
+  three:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+    label: 'fold0 old'
+    reference: True
+    df_name: 'tracks'
+  four:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold1-gnn-count/GN2ej_5_20240613-T113800/ckpts/epoch=009-val_loss=0.02289__test_pp_output_val.h5'
+    label: 'fold1 old'
+    reference: False
+    df_name: 'tracks'
+  
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7, 7]
+  leg_loc: lower right
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 14
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  # numvert_perf:
+  #   class: plotter.plot_classes.num_vert_perf_plot.NumVertPerfPlotBase
+  #   samples: *samples
+  #   sig_eff_filename: EJ_eff_vs_NumVert.png
+  #   bkg_rej_filename: QCD_rej_vs_NumVert.png
+  #   working_point: 0.95
+  #   binedges: [0,1,2,3,4,6,8,10,14] # or can specify np.linspace / np.arange
+  #   sig_eff_leg_loc: lower right
+  #   bkg_rej_leg_loc: upper right
+  #   style:
+  #     <<: *style
+  #     grid: True
+  #     figsize: !!python/tuple [7,5]
+  #     y_scale: 1.0
+  #     atlas_tag_outside: True
+
+  numvert_compare:
+    class: plotter.plot_classes.num_vert_perf_plot.NumVertComparePlotBase
+    samples:  # specify specific sample here
+      path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+      colour: mediumblue
+      df_name: 'tracks'
+    filename: NumVertCompare.pdf
+    max_val: 25
+    disp_only: True
+    style:
+      <<: *style
+      figsize: !!python/tuple [7,7]
+      atlas_tag_outside: True

@@ -1,0 +1,47 @@
+output_dir: output
+
+samples: &samples
+  one:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/GN3ej-fold1_20240722-T164135/ckpts/epoch=009-val_loss=0.02734__test_pp_output_val.h5'
+    label: 'GN3ej'
+  # two:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+  #   label: 'fold0 old'
+  # three:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/gnn-layer-count/GN2ej_4_20240611-T092747/ckpts/epoch=012-val_loss=0.02329__test_pp_output_val.h5'
+  #   label: 'mc23, GN3ej 4 layers'
+  # four:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/gnn-layer-count/GN2ej_3_20240610-T114657/ckpts/epoch=009-val_loss=0.02301__test_pp_output_val.h5'
+  #   label: 'mc23, GN3ej 3 layers'
+  # five:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/gnn-layer-count/GN2ej_2_20240611-T092747/ckpts/epoch=012-val_loss=0.02351__test_pp_output_val.h5'
+  #   label: 'mc23, GN3ej 2 layers'
+
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 6]
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  jetpt_perf:
+    class: plotter.plot_classes.jetpt_perf_plot.JetPtPerfPlotBase
+    samples: *samples
+    sig_eff_filename: EJ_eff_vs_jetpT.png
+    bkg_rej_filename: QCD_rej_vs_jetpT.png
+    working_point: 0.99
+    binedges: [0.2,0.3,0.4,0.6,0.8,1.2,2.25]  # in TeV
+    sig_eff_leg_loc: lower right
+    bkg_rej_leg_loc: upper left
+    style:
+      <<: *style
+      grid: True
+      figsize: !!python/tuple [7,5]
+      y_scale: 1.0
+      atlas_tag_outside: True

@@ -1,0 +1,35 @@
+output_dir: output
+
+samples: &samples
+  GN2ej:
+    path: '/Users/jburzyns/Documents/work/ATLAS/EmergingJets/test_samples/epoch=015-val_loss=0.02852__test_pp_output_val.h5'
+    label: 'GN2ej'
+    reference: True
+    df_name: jets
+  GN2ej_noPt:
+    path: '/Users/jburzyns/Documents/work/ATLAS/EmergingJets/test_samples/epoch=015-val_loss=0.02852__test_pp_output_val.h5'
+    label: 'GN2ej_noPt'
+    reference: False
+    df_name: jets
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6.5, 6]
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+
+plots:
+  roc:
+    class: plotter.plot_classes.roc_plot.RocPlotBase
+    samples: *samples
+    file_name: roc.png
+    target_label: isDisplaced
+    tagger_output: GN2ej_pdispjet
+    range: !!python/tuple [0.75, 1, 100]
+    style:
+      <<: *style
+      n_ratio_panels: 1
+      ylabel: "QCD rejection"
+      xlabel: "EJ efficiency"
+      y_scale: 1.4

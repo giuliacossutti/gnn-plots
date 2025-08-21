@@ -1,0 +1,32 @@
+output_dir: output
+
+samples: &samples
+  mc23-fold0:
+    path: '/project/def-mdanning/rhall02/salt/salt/logs/GN3ej-fold0_20240722-T162121/ckpts/epoch=010-val_loss=0.02672__test_pp_output_val.h5'
+    label: GN3ej
+  # mc23-fold1:
+  #   path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold1-gnn-count/GN2ej_5_20240613-T113800/ckpts/epoch=009-val_loss=0.02289__test_pp_output_val.h5'
+  #   label: mc23-fold1
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 5]
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.2
+  logy: True
+
+plots:
+  sample_info:
+    class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
+    samples: *samples
+    file_name: info_tracks_z0SinTheta.png
+    info_df_name: tracks
+    info_type: z0SinTheta
+    num_bins: 100
+    style:
+      <<: *style
+      ymax: 3
+      ylabel: "Normalised number of jets"
+      xlabel: "Track $z_0 sin(\\theta))$"
+      in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)

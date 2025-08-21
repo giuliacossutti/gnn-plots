@@ -1,0 +1,53 @@
+output_dir: output
+
+samples: &samples
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 6]
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  jetpt_perf:
+    class: plotter.plot_classes.jetpt_perf_plot.JetPtPerfPlotBase
+    samples:
+      GN2ej:
+        path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+        label: 'GN3ej sample'
+        colour: blue
+    working_point: 0.98
+    factor: 1.2 # factor by which to increase consecutive bin
+    starting_bin_width: 100 # in GeV
+    sig_eff_bin_num: 10
+    bkg_rej_bin_num: 10
+    style:
+      <<: *style
+      grid: True
+      figsize: !!python/tuple [7,5]
+      y_scale: 1.0
+      atlas_tag_outside: True
+
+  # vertex:
+  #   class: plotter.plot_classes.vertex_plot.VertexPlotBase
+  #   samples:
+  #     path: '/home/randon_h/gnnej/gnn-plots/data/epoch=008-val_loss=0.02631__test_pp_output_val.h5'
+  #     label: 'GN2ej sample'
+  #     df_name: tracks_from_jet
+  #   file_name: vertex_index.png
+  #   jet_num: 628
+  #   style:
+  #     <<: *style
+  #     figsize: !!python/tuple [10,5]
+  #     xlabel: "$n_{track}$"
+  #     ylabel: "$n_{track}$"
+  #     show_entries: False
+  #     show_percentages: False
+  #     text_color_threshold: 0.6
+  #     colormap: gray
+  #     cbar_label: ""
