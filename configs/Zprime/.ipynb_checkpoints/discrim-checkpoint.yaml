@@ -10,7 +10,7 @@ style: &style
   figsize: !!python/tuple [7, 5]
   logy: True
   use_atlas_tag: True
-  atlas_second_tag: "$Z' portal, \\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -24,7 +24,7 @@ plots:
     low: 0.00
     high: 1.00
     dx: 0.01
-    file_name: ../plots/Zprime/discrim_right.png
+    file_name: ../plots/Zprime/Zprime_discrim.png
     style:
       <<: *style
       n_ratio_panels: 1

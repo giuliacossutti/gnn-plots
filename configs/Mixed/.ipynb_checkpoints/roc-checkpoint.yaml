@@ -6,11 +6,11 @@ samples: &samples
     label: "Z' portal"
     reference: True
     df_name: jets
-#  Higgs:
-#    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/'
-#    label: 'Higgs portal'
-#    reference: False
-#    df_name: jets
+  Higgs:
+    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K.h5'
+    label: 'Higgs portal'
+    reference: False
+    df_name: jets
 
 style: &style
   ylabel: ""
@@ -27,10 +27,10 @@ plots:
     file_name: ../plots/Mixed/roc.png
     target_label: isDisplaced
     tagger_output: GN3ej-fold0
-    range: !!python/tuple [0.75, 1, 100]
+    range: !!python/tuple [0.70, 1, 100]
     leg_inside: True
     leg_fontsize: 12
-    reference_label: "nominal"
+    reference_label: "$Z'$"
     show_cuts: True
     cut_values: [0.98]  # or None
     style:

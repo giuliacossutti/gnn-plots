@@ -1,7 +1,7 @@
 output_dir: output
 
 samples: &samples
-  path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_val.h5'
+  path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K.h5'
   label: 'GN3ej-fold0'
 
 style: &style
@@ -10,7 +10,7 @@ style: &style
   figsize: !!python/tuple [7, 5]
   logy: True
   use_atlas_tag: True
-  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -24,7 +24,7 @@ plots:
     low: 0.00
     high: 1.00
     dx: 0.01
-    file_name: ../plots/Zprime/Zprime_discrim.png
+    file_name: ../plots/Higgs/Higgs_discrim.png
     style:
       <<: *style
       n_ratio_panels: 1
