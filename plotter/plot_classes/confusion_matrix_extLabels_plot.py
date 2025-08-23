@@ -23,6 +23,7 @@ class ConfMatPlotBase(PlotBase):
 		    'dpi',
 		    'show_entries',
 		    'text_color_threshold',
+			"atlas_first_tag",
 		    # 'colormap'
 		}
 
@@ -102,9 +103,7 @@ class ConfMatPlotBase(PlotBase):
 				# initialize predicted origin labels
 				pred_origin = np.empty(len(true_origin))
 
-				print("Max label in predictions:", np.max(pred_origin))
-				print("Max label in targets:", np.max(true_origin))
-				print("true_origin:", true_origin)
+				
 				
 				# update the pred_origin with most likely predicted track origins
 				for i, (pu, fk, pr, B, BC, C, Tau, os, dp) in enumerate(zip(pred_pileup, pred_fake, pred_primary, pred_fromB, pred_fromBC, pred_fromC, pred_fromTau, pred_otherSecondary, pred_displaced)):
@@ -115,10 +114,11 @@ class ConfMatPlotBase(PlotBase):
 						pred_origin[i] = 1
 					elif origin == pr:
 						pred_origin[i] = 2
-					elif origin == B:
+					elif origin == dp:      # Old 4 categories
 						pred_origin[i] = 3
-
 					'''
+					elif origin == B:       # New 9 categories
+						pred_origin[i] = 3					
 					elif origin == BC:
 						pred_origin[i] = 4
 					elif origin == C:
@@ -131,6 +131,10 @@ class ConfMatPlotBase(PlotBase):
 						pred_origin[i] = 8
 					'''
 
+				print("Max label in predictions:", np.max(pred_origin))
+				print("Max label in targets:", np.max(true_origin))
+				print("true_origin:", true_origin)
+				
 				# compute the confusion matrix
 				confmat = confusion_matrix.confusion_matrix(targets=true_origin, predictions=pred_origin)
 

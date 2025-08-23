@@ -5,6 +5,7 @@ style: &style
   xlabel: ""
   figsize: !!python/tuple [6, 6]
   use_atlas_tag: True
+  atlas_first_tag: "Work In Progress"
   atlas_second_tag: "Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
@@ -14,12 +15,14 @@ style: &style
 plots:
   conf_mat:
     class: plotter.plot_classes.confusion_matrix_extLabels_plot.ConfMatPlotBase
+    #class: plotter.plot_classes.confusion_matrix_plot.ConfMatPlotBase
     samples:
       path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K.h5'
       label: 'GN3ej'
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
-    file_name: ../plots/Higgs/Higgs_confusion.png
+    file_name: ../plots/Higgs/Higgs_confusion_4origins.png
+    #file_name: ../plots/Higgs/Higgs_confusion_9origins.png
     style:
       <<: *style
       xlabel: GN3ej prediction

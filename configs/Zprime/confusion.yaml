@@ -5,6 +5,7 @@ style: &style
   xlabel: ""
   figsize: !!python/tuple [6, 6]
   use_atlas_tag: True
+  atlas_first_tag: "Work In Progress"
   atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
@@ -19,7 +20,7 @@ plots:
       label: 'GN3ej'
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
-    file_name: ../plots/Zprime/Zpriime_confusion.png
+    file_name: ../plots/Zprime/Zprime_confusion_4origins.png
     style:
       <<: *style
       xlabel: GN3ej prediction
