@@ -3,12 +3,12 @@ output_dir: output
 style: &style
   ylabel: ""
   xlabel: ""
-  figsize: !!python/tuple [6, 6]
+  figsize: !!python/tuple [12, 12]
   #use_atlas_tag: True
   atlas_brand: ""
   #atlas_first_tag: "Work In Progress"
   atlas_first_tag: ""
-  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "Higgs portal, 9 track origin labels, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -17,17 +17,18 @@ style: &style
 plots:
   conf_mat:
     class: plotter.plot_classes.confusion_matrix_ext9Labels_plot.ConfMatPlotBase
+    #class: plotter.plot_classes.confusion_matrix_plot.ConfMatPlotBase
     samples:
-      path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_val.h5'
+      path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K_9labels.h5'
       label: 'GN3ej'
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
-    #file_name: ../plots/Zprime/Zprime_confusion_4origins.png
-    file_name: ../plots/Zprime/Zprime_confusion_9origins.png
+    file_name: ../plots/Higgs/Higgs_confusion_9origins.png
     style:
       <<: *style
       xlabel: GN3ej prediction
       ylabel: Truth labels
+      title: Higgs 
       figsize: !!python/tuple [11,11]
       show_entries: True
       text_color_threshold: 0.6

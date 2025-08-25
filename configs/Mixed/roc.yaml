@@ -6,9 +6,14 @@ samples: &samples
     label: "Z' portal"
     reference: True
     df_name: jets
-  Higgs:
+  Higgs 4 labels:
     path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K.h5'
-    label: 'Higgs portal'
+    label: 'Higgs portal, 4 track origin labels'
+    reference: False
+    df_name: jets
+  Higgs 9 labels:
+    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K_9labels.h5'
+    label: 'Higgs portal, 9 track origin labels'
     reference: False
     df_name: jets
 
@@ -27,7 +32,8 @@ plots:
   roc:
     class: plotter.plot_classes.roc_plot.RocPlotBase
     samples: *samples
-    file_name: ../plots/Mixed/roc.png
+    #file_name: ../plots/Mixed/roc.png
+    file_name: ../plots/Mixed/roc_9labels.png
     target_label: isDisplaced
     tagger_output: GN3ej-fold0
     range: !!python/tuple [0.70, 1, 100]
