@@ -24,6 +24,7 @@ class DiscrimPlotBase(PlotBase):
 			'fontsize',
 			'dpi',
 			'use_atlas_tag',
+			"atlas_brand",
 			'atlas_first_tag',
 			'atlas_second_tag'
 		}

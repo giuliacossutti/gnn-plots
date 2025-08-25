@@ -4,8 +4,10 @@ style: &style
   ylabel: ""
   xlabel: ""
   figsize: !!python/tuple [6, 6]
-  use_atlas_tag: True
-  atlas_first_tag: "Work In Progress"
+  #use_atlas_tag: True
+  atlas_brand: ""
+  #atlas_first_tag: "Work In Progress"
+  atlas_first_tag: ""
   atlas_second_tag: "Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
@@ -27,6 +29,7 @@ plots:
       <<: *style
       xlabel: GN3ej prediction
       ylabel: Truth labels
+      title: Higgs 
       figsize: !!python/tuple [8,8]
       show_entries: True
       text_color_threshold: 0.6

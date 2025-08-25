@@ -23,7 +23,10 @@ class ConfMatPlotBase(PlotBase):
 		    'dpi',
 		    'show_entries',
 		    'text_color_threshold',
+			#"use_atlas_tag",
+			"atlas_brand",
 			"atlas_first_tag",
+			"atlas_second_tag",
 		    # 'colormap'
 		}
 
@@ -144,5 +147,5 @@ class ConfMatPlotBase(PlotBase):
 		confmatplot = MatshowPlot(**filtered_params, x_ticks_rotation=0, colormap=plt.cm.GnBu)
 
 		confmatplot.draw(confmat)
-
+		
 		confmatplot.savefig(self.config.file_name, dpi=filtered_params["dpi"])

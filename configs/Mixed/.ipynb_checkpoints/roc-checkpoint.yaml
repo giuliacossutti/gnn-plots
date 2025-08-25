@@ -16,7 +16,10 @@ style: &style
   ylabel: ""
   xlabel: ""
   figsize: !!python/tuple [6.5, 6]
-  atlas_first_tag: "Work In Progress"
+  #use_atlas_tag: True
+  atlas_brand: ""
+  #atlas_first_tag: "Work In Progress"
+  atlas_first_tag: ""
   atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
 

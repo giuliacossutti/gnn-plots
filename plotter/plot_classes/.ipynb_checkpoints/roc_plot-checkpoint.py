@@ -19,6 +19,7 @@ class RocPlotBase(PlotBase):
             "ymin",
             "ylabel",
             "xlabel",
+            "use_atlas_tag",
             "atlas_first_tag",
             "atlas_second_tag",
             "figsize",
@@ -26,6 +27,7 @@ class RocPlotBase(PlotBase):
             "label_fontsize",
             "fontsize",
             "atlas_fontsize",
+			"atlas_brand",
             "grid"
         }
         filtered_params = {

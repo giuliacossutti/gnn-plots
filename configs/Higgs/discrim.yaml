@@ -9,14 +9,15 @@ style: &style
   xlabel: ""
   figsize: !!python/tuple [7, 5]
   logy: True
-  use_atlas_tag: True
-  atlas_first_tag: "Work In Progress"
+  #use_atlas_tag: True
+  atlas_brand: ""
+  #atlas_first_tag: "Work In Progress"
+  atlas_first_tag: ""
   atlas_second_tag: "Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
   dpi: 300
-  atlas_first_tag: "Work In Progress"
 
 plots:
   discrim:
