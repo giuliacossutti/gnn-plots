@@ -135,10 +135,11 @@ class ConfMatPlotBase(PlotBase):
 				print("Max label in predictions:", np.max(pred_origin))
 				print("Max label in targets:", np.max(true_origin))
 				print("true_origin:", true_origin)
-				
+
+				#true_origin = np.array([0, 2, 3, 4, 5, 6, 7, 7, 8])
+				#pred_origin = np.array([0, 1, 1, 1, 1, 6, 8, 8, 8])
 				# compute the confusion matrix
 				confmat = confusion_matrix.confusion_matrix(targets=true_origin, predictions=pred_origin)
-
 
 		# CONSTRUCTING THE FIGURE AND PLOTTING THE CONFUSION MATRIX
 		# ---------------------------------------------------------

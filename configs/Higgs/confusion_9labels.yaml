@@ -24,6 +24,7 @@ plots:
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
     file_name: ../plots/Higgs/Higgs_confusion_9origins.png
+    #file_name: ../plots/Higgs/Higgs_confusion_prova.png
     style:
       <<: *style
       xlabel: GN3ej prediction
