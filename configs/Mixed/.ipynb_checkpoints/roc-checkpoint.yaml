@@ -6,14 +6,15 @@ samples: &samples
     label: "Z' portal"
     reference: True
     df_name: jets
-  Higgs 4 labels:
-    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K.h5'
-    label: 'Higgs portal, 4 track origin labels'
-    reference: False
-    df_name: jets
+#  Higgs 4 labels:
+#    path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K.h5'
+#    label: 'Higgs portal, 4 track origin labels'
+#    reference: False
+#    df_name: jets
   Higgs 9 labels:
     path: '/home/private/EmergingJetTagger/salt/salt/logs/GN3ej-fold0_20250713-T123448/ckpts/epoch=014-val_loss=0.03811__test_HiggsPortal_10K_9labels.h5'
-    label: 'Higgs portal, 9 track origin labels'
+    #label: 'Higgs portal, 9 track origin labels'
+    label: 'Higgs portal'
     reference: False
     df_name: jets
 
@@ -21,6 +22,7 @@ style: &style
   ylabel: ""
   xlabel: ""
   figsize: !!python/tuple [6.5, 6]
+  #figsize: !!python/tuple [6, 8]
   #use_atlas_tag: True
   atlas_brand: ""
   #atlas_first_tag: "Work In Progress"
@@ -33,15 +35,21 @@ plots:
     class: plotter.plot_classes.roc_plot.RocPlotBase
     samples: *samples
     #file_name: ../plots/Mixed/roc.png
-    file_name: ../plots/Mixed/roc_9labels.png
+    #file_name: ../plots/Mixed/roc_9labels.png
+    #file_name: ../plots/Mixed/roc_points_thesis.pdf
+    #file_name: ../plots/Mixed/roc_points_SIF.pdf
+    file_name: ../plots/Mixed/roc_thesis.pdf
+    #file_name: ../plots/Mixed/roc_SIF.pdf
     target_label: isDisplaced
     tagger_output: GN3ej-fold0
-    range: !!python/tuple [0.70, 1, 100]
+    #range: !!python/tuple [0.70, 1, 100]
+    range: !!python/tuple [0.80, 1, 100]
     leg_inside: True
     leg_fontsize: 12
     reference_label: "$Z'$"
     show_cuts: True
     cut_values: [0.98]  # or None
+    #cut_values: [0.90,0.98,0.99]  # or None
     style:
       <<: *style
       n_ratio_panels: 1

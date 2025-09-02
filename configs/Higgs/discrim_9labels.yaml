@@ -9,11 +9,12 @@ style: &style
   xlabel: ""
   figsize: !!python/tuple [7, 5]
   logy: True
-  #use_atlas_tag: True
-  atlas_brand: ""
-  #atlas_first_tag: "Work In Progress"
-  atlas_first_tag: ""
-  atlas_second_tag: "Higgs portal, 9 track origin labels\n$\\sqrt{{s}}=13.6$ TeV"
+  use_atlas_tag: True
+  #atlas_brand: ""
+  atlas_first_tag: "Work In Progress"
+  #atlas_first_tag: ""
+  #atlas_second_tag: "Higgs portal, 9 track origin labels\n$\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -26,7 +27,9 @@ plots:
     low: 0.00
     high: 1.00
     dx: 0.01
-    file_name: ../plots/Higgs/Higgs_discrim_9labels.png
+    #file_name: ../plots/Higgs/Higgs_discrim_9labels.png
+    #file_name: ../plots/Higgs/Higgs_discrim_thesis.pdf
+    file_name: ../plots/Higgs/Higgs_discrim_SIF.pdf
     style:
       <<: *style
       n_ratio_panels: 1

@@ -137,6 +137,15 @@ class ConfMatPlotBase(PlotBase):
 				print("Max label in predictions:", np.max(pred_origin))
 				print("Max label in targets:", np.max(true_origin))
 				print("true_origin:", true_origin)
+
+				print("\nNumber of jets:",len(ds_tfj))
+				print("\nNumber of tracks in true_origin:", len(true_origin), "\nOf which:\n")
+				# Count occurrences of values from 0 to 8
+				counts = {i: np.sum(true_origin == i) for i in range(9)}
+
+				# Print the results
+				for key, value in counts.items():
+					print(f"{key}: {value}")
 				
 				# compute the confusion matrix
 				confmat = confusion_matrix.confusion_matrix(targets=true_origin, predictions=pred_origin)

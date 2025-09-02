@@ -4,11 +4,13 @@ style: &style
   ylabel: ""
   xlabel: ""
   figsize: !!python/tuple [12, 12]
-  #use_atlas_tag: True
-  atlas_brand: ""
+  use_atlas_tag: True
+  #atlas_brand: ""
   #atlas_first_tag: "Work In Progress"
-  atlas_first_tag: ""
-  atlas_second_tag: "Higgs portal, 9 track origin labels, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_first_tag: "Work In Progress, Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
+  #atlas_first_tag: ""
+  #atlas_second_tag: "Higgs portal, 9 track origin labels, $\\sqrt{{s}}=13.6$ TeV"
+  #atlas_second_tag: "Higgs portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -23,8 +25,10 @@ plots:
       label: 'GN3ej'
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
-    file_name: ../plots/Higgs/Higgs_confusion_9origins.png
+    #file_name: ../plots/Higgs/Higgs_confusion_9origins.png
     #file_name: ../plots/Higgs/Higgs_confusion_prova.png
+    #file_name: ../plots/Higgs/Higgs_confusion_thesis.pdf
+    file_name: ../plots/Higgs/Higgs_confusion_SIF.pdf
     style:
       <<: *style
       xlabel: GN3ej prediction

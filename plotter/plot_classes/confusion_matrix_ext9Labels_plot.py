@@ -43,7 +43,12 @@ class ConfMatPlotBase(PlotBase):
 		with h5py.File(sample.path, "r") as hdf_file:
 
 			ds_tfj = hdf_file[sample.df_name]
-
+			
+			# Load only the first n rows (assuming it's a 2D dataset)
+			#limited_data = hdf_file[sample.df_name]
+			#print("\nTotal number of jets:",len(limited_data),"\n")
+			#ds_tfj = limited_data[:10000]
+			
 			# get attribute name for GNN ej score
 			keys_list = list(ds_tfj.dtype.fields.keys())
 
@@ -135,6 +140,15 @@ class ConfMatPlotBase(PlotBase):
 				print("Max label in predictions:", np.max(pred_origin))
 				print("Max label in targets:", np.max(true_origin))
 				print("true_origin:", true_origin)
+
+				print("\nNumber of jets:",len(ds_tfj))
+				print("\nNumber of tracks in true_origin:", len(true_origin), "\nOf which:\n")
+				# Count occurrences of values from 0 to 8
+				counts = {i: np.sum(true_origin == i) for i in range(9)}
+
+				# Print the results
+				for key, value in counts.items():
+					print(f"{key}: {value}")
 
 				#true_origin = np.array([0, 2, 3, 4, 5, 6, 7, 7, 8])
 				#pred_origin = np.array([0, 1, 1, 1, 1, 6, 8, 8, 8])
