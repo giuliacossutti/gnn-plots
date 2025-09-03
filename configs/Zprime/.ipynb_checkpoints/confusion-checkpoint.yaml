@@ -6,14 +6,15 @@ style: &style
   figsize: !!python/tuple [6, 6]
   use_atlas_tag: True
   #atlas_brand: ""
-  #atlas_first_tag: "Work In Progress"
-  atlas_first_tag: "Work In Progress, $Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_first_tag: "Work In Progress"
+  #atlas_first_tag: "Work In Progress, $Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
   #atlas_first_tag: ""
-  #atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
-  fontsize: 15
-  label_fontsize: 15
+  fontsize: 20
+  label_fontsize: 20
   dpi: 300
+  atlas_tag_outside: True
 
 plots:
   conf_mat:

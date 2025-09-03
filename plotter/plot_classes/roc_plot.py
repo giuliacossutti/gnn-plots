@@ -28,7 +28,7 @@ class RocPlotBase(PlotBase):
             "fontsize",
             "atlas_fontsize",
 			"atlas_brand",
-            "grid"
+            "grid",
         }
         filtered_params = {
             key: value for key, value in self.config.style.items() if key in required_params

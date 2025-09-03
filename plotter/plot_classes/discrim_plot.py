@@ -26,7 +26,8 @@ class DiscrimPlotBase(PlotBase):
 			'use_atlas_tag',
 			"atlas_brand",
 			'atlas_first_tag',
-			'atlas_second_tag'
+			'atlas_second_tag',
+			'label_fontsize'
 		}
 
 		# filter only the necessary parameters from the config file to plot the vertex matrix

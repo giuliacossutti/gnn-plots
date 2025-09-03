@@ -23,10 +23,11 @@ class ConfMatPlotBase(PlotBase):
 		    'dpi',
 		    'show_entries',
 		    'text_color_threshold',
-			#"use_atlas_tag",
+			"use_atlas_tag",
 			"atlas_brand",
 			"atlas_first_tag",
 			"atlas_second_tag",
+			"atlas_tag_outside",
 		    # 'colormap'
 		}
 
@@ -150,6 +151,14 @@ class ConfMatPlotBase(PlotBase):
 				for key, value in counts.items():
 					print(f"{key}: {value}")
 
+				print("\nNumber of tracks in pred_origin:", len(pred_origin), "\nOf which:\n")
+				# Count occurrences of values from 0 to 8
+				pcounts = {i: np.sum(pred_origin == i) for i in range(9)}
+
+				# Print the results
+				for key, value in pcounts.items():
+					print(f"{key}: {value}")
+
 				#true_origin = np.array([0, 2, 3, 4, 5, 6, 7, 7, 8])
 				#pred_origin = np.array([0, 1, 1, 1, 1, 6, 8, 8, 8])
 				# compute the confusion matrix
@@ -160,5 +169,11 @@ class ConfMatPlotBase(PlotBase):
 		confmatplot = MatshowPlot(**filtered_params, x_ticks_rotation=0, colormap=plt.cm.GnBu)
 
 		confmatplot.draw(confmat)
+		
+		cbar = confmatplot.fig.axes[-1]  # often the last axis is the colorbar
+		cbar.tick_params(labelsize=filtered_params["fontsize"])
+		
+		confmatplot.plotting_done = True
+		confmatplot.atlasify()
 		
 		confmatplot.savefig(self.config.file_name, dpi=filtered_params["dpi"])

@@ -9,10 +9,10 @@ style: &style
   xlabel: ""
   figsize: !!python/tuple [7, 5]
   logy: True
-  use_atlas_tag: True
-  #atlas_brand: ""
-  atlas_first_tag: "Work In Progress"
-  #atlas_first_tag: ""
+  #use_atlas_tag: True
+  atlas_brand: ""
+  #atlas_first_tag: "Work In Progress"
+  atlas_first_tag: ""
   #atlas_second_tag: "$Z'$ portal, 9 track origin labels\n$\\sqrt{{s}}=13.6$ TeV"
   atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
@@ -28,8 +28,8 @@ plots:
     high: 1.00
     dx: 0.01
     #file_name: ../plots/Zprime/Zprime_discrim.png
-    #file_name: ../plots/Zprime/Zprime_discrim_thesis.pdf
-    file_name: ../plots/Zprime/Zprime_discrim_SIF.pdf
+    file_name: ../plots/Zprime/Zprime_discrim_thesis.pdf
+    #file_name: ../plots/Zprime/Zprime_discrim_SIF.pdf
     style:
       <<: *style
       n_ratio_panels: 1

@@ -23,7 +23,7 @@ class ConfMatPlotBase(PlotBase):
 		    'dpi',
 		    'show_entries',
 		    'text_color_threshold',
-			#"use_atlas_tag",
+			"use_atlas_tag",
 			"atlas_brand",
 			"atlas_first_tag",
 			"atlas_second_tag",
@@ -145,6 +145,14 @@ class ConfMatPlotBase(PlotBase):
 
 				# Print the results
 				for key, value in counts.items():
+					print(f"{key}: {value}")
+
+				print("\nNumber of tracks in pred_origin:", len(pred_origin), "\nOf which:\n")
+				# Count occurrences of values from 0 to 8
+				pcounts = {i: np.sum(pred_origin == i) for i in range(9)}
+
+				# Print the results
+				for key, value in pcounts.items():
 					print(f"{key}: {value}")
 				
 				# compute the confusion matrix
