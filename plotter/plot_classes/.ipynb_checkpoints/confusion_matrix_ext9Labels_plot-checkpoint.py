@@ -43,12 +43,12 @@ class ConfMatPlotBase(PlotBase):
 		# -------------------
 		with h5py.File(sample.path, "r") as hdf_file:
 
-			ds_tfj = hdf_file[sample.df_name]
+			#ds_tfj = hdf_file[sample.df_name]
 			
 			# Load only the first n rows (assuming it's a 2D dataset)
-			#limited_data = hdf_file[sample.df_name]
-			#print("\nTotal number of jets:",len(limited_data),"\n")
-			#ds_tfj = limited_data[:10000]
+			limited_data = hdf_file[sample.df_name]
+			print("\nTotal number of jets:",len(limited_data),"\n")
+			ds_tfj = limited_data[:10000]
 			
 			# get attribute name for GNN ej score
 			keys_list = list(ds_tfj.dtype.fields.keys())
@@ -173,7 +173,7 @@ class ConfMatPlotBase(PlotBase):
 		cbar = confmatplot.fig.axes[-1]  # often the last axis is the colorbar
 		cbar.tick_params(labelsize=filtered_params["fontsize"])
 		
-		confmatplot.plotting_done = True
-		confmatplot.atlasify()
+		#confmatplot.plotting_done = True
+		#confmatplot.atlasify()
 		
 		confmatplot.savefig(self.config.file_name, dpi=filtered_params["dpi"])
