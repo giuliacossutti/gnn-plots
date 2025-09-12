@@ -21,12 +21,14 @@ samples: &samples
 style: &style
   ylabel: ""
   xlabel: ""
-  figsize: !!python/tuple [7, 6]
+  #figsize: !!python/tuple [7, 6]
   #figsize: !!python/tuple [7, 8]
-  #use_atlas_tag: True
-  atlas_brand: ""
+  figsize: !!python/tuple [8, 8]
+  use_atlas_tag: True
+  #atlas_brand: ""
+  atlas_first_tag: "Simulation, Work In Progress"
   #atlas_first_tag: "Work In Progress"
-  atlas_first_tag: ""
+  #atlas_first_tag: ""
   atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   label_fontsize: 15
@@ -41,8 +43,10 @@ plots:
     #file_name: ../plots/Mixed/roc_9labels.png
     #file_name: ../plots/Mixed/roc_points_thesis.pdf
     #file_name: ../plots/Mixed/roc_points_SIF.pdf
-    file_name: ../plots/Mixed/roc_thesis.pdf
+    #file_name: ../plots/Mixed/roc_points_SIFsimulation.pdf
+    #file_name: ../plots/Mixed/roc_thesis.pdf
     #file_name: ../plots/Mixed/roc_SIF.pdf
+    file_name: ../plots/Mixed/roc_SIFsimulation.pdf
     target_label: isDisplaced
     tagger_output: GN3ej-fold0
     #range: !!python/tuple [0.70, 1, 100]
