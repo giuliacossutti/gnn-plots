@@ -46,7 +46,8 @@ class DiscrimPlotBase(PlotBase):
 			GN2ej_pdispjet = keys_list[-2]
 
 			df = pd.DataFrame({'isDisplaced': np.array(ds['isDisplaced']).transpose(),
-							  'GN2ej_pdispjet': np.array(ds[GN2ej_pdispjet]).transpose()})
+							  #'GN2ej_pdispjet': np.array(ds[GN2ej_pdispjet]).transpose()})
+							   'GN2ej_pdispjet': np.array(ds["GN3ej-combined-extLabels-fold0-classdict_pdispjet"]).transpose()})
 			df = df.dropna()
 		    
 		    # defining boolean arrays to select the different flavour classes

@@ -1,0 +1,58 @@
+output_dir: output
+
+samples: &samples
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7, 7]
+  leg_loc: lower right
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  # numvert_perf:
+  #   class: plotter.plot_classes.num_vert_perf_plot.NumVertPerfPlotBase
+  #   samples:
+  #     GN2ej:
+  #       path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+  #       label: 'GN2ej sample'
+  #       colour: mediumblue
+  #       df_name: tracks
+  #   working_point: 0.99
+  #   binedges: [0,2,4,6,8,10,14,18,25,35,50]
+  #   bin_width: 2
+  #   sig_eff_leg_loc: lower right
+  #   bkg_rej_leg_loc: upper left
+  #   sig_eff_filename: NumVertSigEff.png
+  #   bkg_rej_filename: NumVertBkgRej.png
+  #   style:
+  #     <<: *style
+  #     grid: True
+  #     figsize: !!python/tuple [7,5]
+  #     y_scale: 1.0
+  #     atlas_tag_outside: True
+
+
+
+  numvert_compare:
+    class: plotter.plot_classes.num_vert_perf_plot.NumVertComparePlotBase
+    samples:
+      path: '/project/def-mdanning/rhall02/salt/salt/logs/mc23-fold0-gnn-count/GN3ej_20240613-T111915/ckpts/epoch=010-val_loss=0.02255__test_pp_output_val.h5'
+      label: 'GN3ej'
+      df_name: tracks
+      colour: mediumblue
+    max_val: 20
+    disp_only: True
+    filename: NumVertCompare.pdf
+    gridspec: !!python/tuple [1,1]        
+    style:
+      <<: *style
+      grid: True
+      figsize: !!python/tuple [8,7]
+      y_scale: 1.0
+      atlas_tag_outside: True
