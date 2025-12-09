@@ -48,31 +48,31 @@ class ConfMatPlotBase(PlotBase):
 			# Load only the first n rows (assuming it's a 2D dataset)
 			limited_data = hdf_file[sample.df_name]
 			print("\nTotal number of jets:",len(limited_data),"\n")
-			ds_tfj = limited_data[:10000]
+			ds_tfj = limited_data[:100000]
 			
 			# get attribute name for GNN ej score
 			keys_list = list(ds_tfj.dtype.fields.keys())
 
             # search for which key contains the GNN signal discriminant
 			for i, key in enumerate(keys_list):
-				print(key)
-				if "GN3ej-fold0_pdisplaced" in key:
+				#print(key)
+				if "pdisplaced" in key:
 					pDisp = keys_list[i]
-				elif "GN3ej-fold0_ppileup" in key:
+				elif "ppileup" in key:
 					pPileup = keys_list[i]
-				elif "GN3ej-fold0_pfake" in key:
+				elif "pfake" in key:
 					pFake = keys_list[i]
-				elif "GN3ej-fold0_pprimary" in key:
+				elif "pprimary" in key:
 					pPrimary = keys_list[i]
-				elif "GN3ej-fold0_pfromBC" in key: #needs to come before pfromB or will never get triggered
+				elif "pfromBC" in key: #needs to come before pfromB or will never get triggered
 					pFromBC = keys_list[i]
-				elif "GN3ej-fold0_pfromB" in key:
+				elif "pfromB" in key:
 					pFromB = keys_list[i]
-				elif "GN3ej-fold0_pfromC" in key:
+				elif "pfromC" in key:
 					pFromC = keys_list[i]
-				elif "GN3ej-fold0_pfromTau" in key:
+				elif "pfromTau" in key:
 					pFromTau = keys_list[i]
-				elif "GN3ej-fold0_potherSecondary" in key:
+				elif "potherSecondary" in key:
 					pOtherSecondary = keys_list[i]
 
 			if sample.df_name == 'jets':

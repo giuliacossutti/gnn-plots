@@ -1,7 +1,9 @@
 # from puma import VarVsEff, VarVsEffPlot
 from plotter.config_dict import ConfigDict
+from puma import VarVsEff, VarVsEffPlot
 import h5py
 import numpy as np
+import pandas as pd
 from atlasify import atlasify
 from plotter.plot_classes.plotbase import PlotBase
 from matplotlib import pyplot as plt
@@ -26,7 +28,13 @@ class NumVertPerfPlotBase(PlotBase):
 			"leg_loc",
 			"atlas_second_tag",
 			"y_scale",
-			"atlas_tag_outside"
+			"atlas_tag_outside",
+			'fontsize',
+		    'label_fontsize',
+			'dpi',
+			"use_atlas_tag",
+			"atlas_brand",
+			"atlas_first_tag",
 		}
 		# filtering out necessary parameters from config file
 		filtered_params = {
@@ -66,12 +74,14 @@ class NumVertPerfPlotBase(PlotBase):
 				# get the working point
 				wp = self.config.working_point
 
-				# string names for probability of displaced and prompt
-				pDisp = jet_keys[-2]
-				pPrompt = jet_keys[-1]
+				# search for which key contains the probability of being displaced
+				for i, key in enumerate(jet_keys):
+					#print(key)
+					if "pdispjet" in key:
+						pDisp = jet_keys[i]
 
 				# obtain GNN discriminant values
-				discs_gnn = ds_jet[pDisp]
+				discs_gnn = np.array(ds_jet[pDisp])
 
 				# define boolean arrays to select the different flavour classes
 				is_disp = ds_jet["isDisplaced"] == 1
@@ -96,9 +106,9 @@ class NumVertPerfPlotBase(PlotBase):
 				# -----------------
 				gnn_ej = VarVsEff(
 					x_var_sig = num_vertices[is_disp],
-					disc_sig = discs_gnn[is_disp].values,
+					disc_sig = discs_gnn[is_disp],
 					x_var_bkg = num_vertices[is_prompt],
-					disc_bkg = discs_gnn[is_prompt].values,
+					disc_bkg = discs_gnn[is_prompt],
 					bins = self.config.binedges,
 					working_point = None,
 					disc_cut = wp,
@@ -145,6 +155,12 @@ class NumVertComparePlotBase(PlotBase):
 			"leg_fontsize",
 			"leg_loc",
 			"y_scale",
+			'fontsize',
+		    'label_fontsize',
+			'dpi',
+			"use_atlas_tag",
+			"atlas_brand",
+			"atlas_first_tag",
 		}
 		# filtering out necessary parameters from config file
 		filtered_params = {

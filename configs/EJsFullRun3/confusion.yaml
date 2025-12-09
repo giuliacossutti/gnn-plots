@@ -9,8 +9,8 @@ style: &style
   #atlas_first_tag: "Simulation Internal"
   atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
-  #fontsize: 20
-  #label_fontsize: 20
+  fontsize: 20
+  label_fontsize: 20
   dpi: 300
   atlas_tag_outside: True
 
@@ -19,7 +19,7 @@ plots:
     class: plotter.plot_classes.confusion_matrix_ext9Labels_plot.ConfMatPlotBase
     samples:
       path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
-      label: 'GN3ej'
+      label: 'GN3ej-combined-extLabels-fold0'
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
     file_name: ../plots/EJsFullRun3/confusion.pdf

@@ -20,6 +20,12 @@ class JetPtPerfPlotBase(PlotBase):
 			"atlas_second_tag",
 			"y_scale",
 			"atlas_tag_outside",
+			'fontsize',
+		    'label_fontsize',
+			'dpi',
+			"use_atlas_tag",
+			"atlas_brand",
+			"atlas_first_tag",
 		}
 		# filtering out necessary parameters from config file
 		filtered_params = {
@@ -51,28 +57,31 @@ class JetPtPerfPlotBase(PlotBase):
 			sample_config = ConfigDict(sample)
 			with h5py.File(sample_config.path, "r") as hdf_file:
 				ds_jet = hdf_file["jets"]
-
+				
 				keys_list = list(ds_jet.dtype.fields.keys())
-
+				
 				# get the working point
 				wp = self.config.working_point
-
-				# string names for probability of displaced and prompt
-				pDisp = keys_list[-2]
-				pPrompt = keys_list[-1]
+				
+				# search for which key contains the probability of being displaced
+				for i, key in enumerate(keys_list):
+					#print(key)
+					if "pdispjet" in key:
+						pDisp = keys_list[i]
+						#print("found: ", pDisp)
 
 				# extract pDisp, pPrompt, and jet p_T, store in pandas dataframe
 				df = pd.DataFrame(
 					{
 						"pt": np.array(ds_jet["pt"])/1e6, # jet p_T in TeV
 						"isDisplaced": np.array(ds_jet["isDisplaced"]),
-						pDisp: np.array(ds_jet[pDisp]),
-						pPrompt: np.array(ds_jet[pPrompt])
+						"pDisp": np.array(ds_jet[pDisp]),
+						"pPrompt": 1.0 - np.array(ds_jet[pDisp]),
 					}
 				)	
 
 				# obtain GNN discriminant values
-				discs_gnn = df[pDisp]
+				discs_gnn = df["pDisp"]
 
 				# define boolean arrays to select the different flavour classes
 				is_disp = df["isDisplaced"] == 1
