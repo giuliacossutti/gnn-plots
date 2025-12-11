@@ -8,6 +8,7 @@ from matplotlib.patches import Rectangle
 from matplotlib.patches import Circle
 from plotter.plot_classes.plotbase import PlotBase
 import time
+from ftag import Cuts
 
 
 def make_VImats(true_vi, pred_vi, pred_pileup, pred_fake, pred_primary, pred_fromB, pred_fromBC, pred_fromC, pred_fromTau, pred_otherSecondary, pred_disp):
@@ -73,7 +74,7 @@ def make_VImats(true_vi, pred_vi, pred_pileup, pred_fake, pred_primary, pred_fro
             for j in range(n):
                 if pred_vi[j] == pred_vi[i]:
                     mat_pred[i][j] = pred_vi[j]
-                    pair = True
+                    if j != i : pair = True
             if pair == True:
                 # give it a different value from 0 to distinguish
                 # NOTE: THIS IS HERE IF I WANT TO ADD ANOTHER ITEM IN THE LEGEND FOR SHOWING THIS CASE
@@ -130,10 +131,12 @@ class VertexPlotBase(PlotBase):
         # ----------------------------------
         with h5py.File(sample.path, "r") as hdf_file:
             jet_num = self.config.jet_num
+            pdispjet_min = self.config.pEJ_min
+            pdispjet_max = self.config.pEJ_max
+            is_Disp = self.config.is_Disp
 
             # extract jet information
-            ds_jet = hdf_file['jets']
-            truth_isDisp = ds_jet['isDisplaced'][jet_num]
+            ds_jet = hdf_file['jets'][:100000]
             keys_list = list(ds_jet.dtype.fields.keys())
 
             # search for which key contains the probability of being displaced
@@ -141,7 +144,14 @@ class VertexPlotBase(PlotBase):
                 #print(key)
                 if "pdispjet" in key:
                    pDispjet = keys_list[i]
-                     
+
+            # Select a desired truthness jet with desired probability of being displaced
+            pdispjet_cuts = Cuts.from_list([f"{pDispjet} >= {pdispjet_min}", f"{pDispjet} <= {pdispjet_max}"])
+            isDisp_cuts = Cuts.from_list([f"isDisplaced == {is_Disp}"])
+            combined_cuts = pdispjet_cuts + isDisp_cuts
+            idx, ds_jet = combined_cuts(ds_jet)
+
+            truth_isDisp = ds_jet['isDisplaced'][jet_num]
             prob_isDisp = ds_jet[pDispjet][jet_num]
             jet_pt = ds_jet['pt'][jet_num]/1000     # jet transverse momentum in GeV
             jet_eta = ds_jet['eta'][jet_num]
@@ -152,7 +162,8 @@ class VertexPlotBase(PlotBase):
             print("about to extract ds_tfj info")
 
             # extract track information
-            ds_tfj = hdf_file[sample.df_name]
+            ds_tfj = hdf_file[sample.df_name][:100000]
+            ds_tfj = ds_tfj[idx]
 
             ds_tfj_jet = ds_tfj[jet_num]  # Load the entire jet_num row once into memory
 
@@ -338,7 +349,7 @@ class VertexPlotBase(PlotBase):
         ### -----------------------------------------------------------------------------------
         # add origin information to truth vertex index matrix
         for i, (pu, fk, pr, B, BC, C, Tau, os, dp) in enumerate(zip(pred_pileup, pred_fake, pred_primary, pred_fromB, pred_fromBC, pred_fromC, pred_fromTau, pred_os, pred_disp)):
-            origin = max(pu, fk, pr, dp)
+            origin = max(pu, fk, pr, B, BC, C, Tau, os, dp)
             if origin == pu:
                 ax_pred.scatter(i, i, color=colors[0], marker='o', s=size)
 
