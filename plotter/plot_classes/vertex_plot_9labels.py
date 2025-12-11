@@ -41,15 +41,15 @@ def make_VImats(true_vi, pred_vi, pred_pileup, pred_fake, pred_primary, pred_fro
     n = len(true_vi)
 
     # initialize vertex index (vi) matrices as completely unpaired
-    # note in these matrices: 0 -> track pairs, 1 -> tracks not paired
-    mat_true = np.ones((n,n))
-    mat_pred = np.ones((n,n))
+    # note in these matrices: -5 -> not paired, 0+ -> vertex index
+    mat_true = np.ones((n,n))*(-5.)
+    mat_pred = np.ones((n,n))*(-5.)
 
     # create truth vi matrices
     for i in range(n):
         # truth vertex: checking if the i^th track is pileup (i.e. not a valid vertex)
         if true_vi[i] == -2:
-            mat_true[i][i] = 0
+            mat_true[i][i] = -5.
 
         # constructing vertex index relationships for valid tracks
         else:
@@ -57,7 +57,7 @@ def make_VImats(true_vi, pred_vi, pred_pileup, pred_fake, pred_primary, pred_fro
             for j in range(n):
                 # checking for matching vertex pairs
                 if true_vi[j] == true_vi[i]:
-                    mat_true[i][j] = 0
+                    mat_true[i][j] = true_vi[j]
 
     vi_matrices.append(mat_true)
     
@@ -72,21 +72,21 @@ def make_VImats(true_vi, pred_vi, pred_pileup, pred_fake, pred_primary, pred_fro
             pair = False
             for j in range(n):
                 if pred_vi[j] == pred_vi[i]:
-                    mat_pred[i][j] = 0
+                    mat_pred[i][j] = pred_vi[j]
                     pair = True
             if pair == True:
                 # give it a different value from 0 to distinguish
                 # NOTE: THIS IS HERE IF I WANT TO ADD ANOTHER ITEM IN THE LEGEND FOR SHOWING THIS CASE
-                mat_pred[i][i] = 0.01
+                mat_pred[i][i] = pred_vi[i]
             else:
-                mat_pred[i][i] = 0
+                mat_pred[i][i] = -5.
 
         # checking if predicted origin is prompt
         elif (origin == pr) or (origin == B) or (origin == BC) or (origin == C) or (origin == Tau) or (origin == os) or (origin == dp):
             # check for vi pairs between the i^th and j^th tracks
             for j in range(n):
                 if pred_vi[j] == pred_vi[i]:
-                    mat_pred[i][j] = 0
+                    mat_pred[i][j] = pred_vi[j]
 
     vi_matrices.append(mat_pred)
 
@@ -277,8 +277,8 @@ class VertexPlotBase(PlotBase):
 
 
         # plotting the truth and predicted vertex index matrices
-        ax_true.imshow(mat_true, cmap='gray')
-        ax_pred.imshow(mat_pred, cmap='gray')
+        ax_true.imshow(mat_true, cmap=plt.cm.GnBu)
+        ax_pred.imshow(mat_pred, cmap=plt.cm.GnBu)
 
 
         # ADJUSTING PLOT SETTINGS
@@ -453,8 +453,8 @@ class VertexPlotBase(PlotBase):
         #         prob_isDisp), ha='left', fontsize=fsize-3
         # )
 
-        ax_true.text(0.05, 0.9, "Truth", transform=ax_true.transAxes, fontsize=14, color="red")
-        ax_pred.text(0.05, 0.84, "Model\nprediction", transform=ax_pred.transAxes, fontsize=14, color="red")
+        ax_true.text(0.05, 0.9, "Truth", transform=ax_true.transAxes, fontsize=14, color="black")
+        ax_pred.text(0.05, 0.84, "Model\nprediction", transform=ax_pred.transAxes, fontsize=14, color="black")
 
 
         plt.savefig(self.config.file_name, dpi=filtered_params['dpi'], bbox_inches='tight')
