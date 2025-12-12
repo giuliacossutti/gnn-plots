@@ -166,7 +166,7 @@ class VertexPlotBase(PlotBase):
             ds_tfj = ds_tfj[idx]
 
             ds_tfj_jet = ds_tfj[jet_num]  # Load the entire jet_num row once into memory
-
+            
             ds_tfj_time = time.time()
             print("finished storing ds_tfj data. took time {0:.3f} s".format(ds_tfj_time-ds_jet_time))
 
@@ -175,11 +175,11 @@ class VertexPlotBase(PlotBase):
             # Use NumPy boolean indexing on a single in-memory array
             true_vi_data = ds_tfj_jet['truthVertexIndex'][valid]
             pred_vi_data = ds_tfj_jet['VertexIndex'][valid]
-
+            
             keys_list_tfj = list(ds_tfj.dtype.fields.keys())
 
             true_origin_data = ds_tfj_jet['truthOriginLabel'][valid]
-
+            
             # search for which key contains the GNN signal discriminant
             for i, key in enumerate(keys_list_tfj):
                 #print(key)

@@ -5,6 +5,7 @@ import h5py
 import numpy as np
 import pandas as pd
 from plotter.plot_classes.plotbase import PlotBase
+from ftag import Cuts
 
 class SampleInfoPlotBase(PlotBase):
 	"""
@@ -23,12 +24,19 @@ class SampleInfoPlotBase(PlotBase):
             "figsize",
             "logy",
             "y_scale",
+			"fontsize",
+			"label_fontsize",
+			"atlas_tag_outside"
         }
 		filtered_params = {
         	key: value for key, value in self.config.style.items() if key in required_params
         }
 		
 		linestyles = get_good_linestyles()[:6]
+
+		# Minimum and maximum probability of being displaced for selected jets
+		pdispjet_min = self.config.pEJ_min
+		pdispjet_max = self.config.pEJ_max
 		
 		i = 0
 		
@@ -38,24 +46,44 @@ class SampleInfoPlotBase(PlotBase):
 			with h5py.File(sample_config.path, "r") as hdf_file:
 				if self.config.info_df_name == "jets":
 					ds_jet = hdf_file[self.config.info_df_name]
-					
+
+					# Find which key contains the probability of being displaced
+					keys_list = list(ds_jet.dtype.fields.keys())
+
+					for j, key in enumerate(keys_list):
+						#print(key)
+						if "pdispjet" in key:
+						    pDispjet = keys_list[j]
+
+					# Select jets with desired probability of being displaced
+					pdispjet_cuts = Cuts.from_list([f"{pDispjet} >= {pdispjet_min}", f"{pDispjet} <= {pdispjet_max}"])
+					idx, ds_jet_sel = pdispjet_cuts(ds_jet)
+
+					# Distinguish truth Emerging and Prompt jets
 					is_disp = ds_jet["isDisplaced"] == 1
 					is_prompt = ds_jet["isDisplaced"] == 0
-					
+					is_disp_sel = ds_jet_sel["isDisplaced"] == 1
+					is_prompt_sel = ds_jet_sel["isDisplaced"] == 0
+
+					# Choose variable to plot its distribution
 					if self.config.style['in_TeV']:
 						info = ds_jet[self.config.info_type]/1e6
+						info_sel = ds_jet_sel[self.config.info_type]/1e6
 					else:
 						info = ds_jet[self.config.info_type]
+						info_sel = ds_jet_sel[self.config.info_type]
 						
 					info_disp = info[is_disp]
 					info_prompt = info[is_prompt]
+					info_disp_sel = info_sel[is_disp_sel]
+					info_prompt_sel = info_sel[is_prompt_sel]
 					
 					min_val = min(info)
 					max_val = max(info)
 
 					if i == 0:
 						info_plot = HistogramPlot(
-							bins=np.linspace(min_val,max_val,101), 
+							bins=np.linspace(min_val,max_val+1E-5,self.config.num_bins), 
 							**filtered_params
 						)
 					
@@ -73,30 +101,66 @@ class SampleInfoPlotBase(PlotBase):
 							linestyle=linestyles[i+1]
 						)
 					)
-					i += 2
+					info_plot.add(
+						Histogram(
+							info_disp_sel,
+							label=f"{sample_config.label}: Emerging Jet with ${pdispjet_min} \\leq p_{{\mathrm{{EJ}}}} \\leq {pdispjet_max}$",
+							linestyle=linestyles[i+2]
+						)
+					)
+					info_plot.add(
+						Histogram(
+							info_prompt_sel,
+							label=f"{sample_config.label}: QCD Jet with ${pdispjet_min} \\leq p_{{\mathrm{{EJ}}}} \\leq {pdispjet_max}$",
+							linestyle=linestyles[i+3]
+						)
+					)
+					i += 4
 				
 				elif self.config.info_df_name == "tracks":
-					ds_jet = hdf_file["jets"]
-					ds_tracks = hdf_file[self.config.info_df_name]
+					ds_jet = hdf_file["jets"][:100000]
+					ds_tracks = hdf_file[self.config.info_df_name][:100000]
+
+					# Find which key contains the probability of being displaced
+					keys_list = list(ds_jet.dtype.fields.keys())
+
+					for j, key in enumerate(keys_list):
+						#print(key)
+						if "pdispjet" in key:
+						    pDispjet = keys_list[j]
+
+					# Select jets with desired probability of being displaced
+					pdispjet_cuts = Cuts.from_list([f"{pDispjet} >= {pdispjet_min}", f"{pDispjet} <= {pdispjet_max}"])
+					idx, ds_jet_sel = pdispjet_cuts(ds_jet)
+					ds_tracks_sel = ds_tracks[idx]
 
 					# determine which jets are EJs or QCD
 					is_disp = ds_jet["isDisplaced"] == 1
-					# is_disp = is_disp.astype(bool)
 					is_prompt = ds_jet["isDisplaced"] == 0
-					# is_prompt = np.invert(is_disp)
+					is_disp_sel = ds_jet_sel["isDisplaced"] == 1
+					is_prompt_sel = ds_jet_sel["isDisplaced"] == 0
 
 					# extract track info
 					info = ds_tracks[self.config.info_type]
+					info_sel = ds_tracks_sel[self.config.info_type]
 
 					# parse the data to obtain the EJ track info
 					ej = info[is_disp]
 					ej_1d = ej.ravel()
 					cleaned_ej = ej_1d[~np.isnan(ej_1d)] # get rid of the nan entries
+
+					ej_sel = info_sel[is_disp_sel]
+					ej_1d_sel = ej_sel.ravel()
+					cleaned_ej_sel = ej_1d_sel[~np.isnan(ej_1d_sel)] # get rid of the nan entries
 					
 					# parse the data to obtain the QCD track info
 					qcd = info[is_prompt]
 					qcd_1d = qcd.ravel()
 					cleaned_qcd = qcd_1d[~np.isnan(qcd_1d)] # get rid of the nan entries
+
+					qcd_sel = info_sel[is_prompt_sel]
+					qcd_1d_sel = qcd_sel.ravel()
+					cleaned_qcd_sel = qcd_1d_sel[~np.isnan(qcd_1d_sel)] # get rid of the nan entries
 
 					min_val = min([min(cleaned_ej), min(cleaned_qcd)])
 					max_val = max([max(cleaned_ej), max(cleaned_qcd)])
@@ -107,7 +171,7 @@ class SampleInfoPlotBase(PlotBase):
 					# set the plot style
 					if i == 0:
 						info_plot = HistogramPlot(
-							bins=np.linspace(min_val, 10, 11),# ,max_val,self.config.num_bins), 
+							bins=np.linspace(min_val, max_val+1E-5,self.config.num_bins),# ,max_val,self.config.num_bins), 
 							**filtered_params
 						)
 					
@@ -125,7 +189,21 @@ class SampleInfoPlotBase(PlotBase):
 							linestyle=linestyles[i+1]
 						)
 					)
-					i += 2
+					info_plot.add(
+						Histogram(
+							cleaned_ej_sel,
+							label=f"{sample_config.label}: Emerging Jet with ${pdispjet_min} \\leq p_{{\mathrm{{EJ}}}} \\leq {pdispjet_max}$",
+							linestyle=linestyles[i+2]
+						)
+					)
+					info_plot.add(
+						Histogram(
+							cleaned_qcd_sel,
+							label=f"{sample_config.label}: QCD Jet with ${pdispjet_min} \\leq p_{{\mathrm{{EJ}}}} \\leq {pdispjet_max}$",
+							linestyle=linestyles[i+3]
+						)
+					)
+					i += 4
 
 			info_plot.draw()
 			info_plot.savefig(self.config.file_name, transparent=False)
