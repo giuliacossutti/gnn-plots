@@ -9,7 +9,7 @@ style: &style
   y_max: 10
   ylabel: ""
   xlabel: ""
-  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
   figsize: !!python/tuple [7.5, 5]
   logy: True
   y_scale: 2.8

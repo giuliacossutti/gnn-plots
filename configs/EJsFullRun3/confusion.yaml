@@ -7,7 +7,7 @@ style: &style
   use_atlas_tag: True
   #atlas_brand: ""
   #atlas_first_tag: "Simulation Internal"
-  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 20
   label_fontsize: 20

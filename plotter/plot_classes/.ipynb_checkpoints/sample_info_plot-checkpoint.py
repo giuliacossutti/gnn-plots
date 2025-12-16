@@ -205,6 +205,125 @@ class SampleInfoPlotBase(PlotBase):
 					)
 					i += 4
 
+				elif self.config.info_df_name == "num_tracks":
+					ds_jet = hdf_file["jets"][:100000]
+					ds_tracks = hdf_file["tracks"][:100000]
+
+					# Find which key contains the probability of being displaced
+					keys_list = list(ds_jet.dtype.fields.keys())
+
+					for j, key in enumerate(keys_list):
+						#print(key)
+						if "pdispjet" in key:
+						    pDispjet = keys_list[j]
+
+					# Select jets with desired probability of being displaced
+					pdispjet_cuts = Cuts.from_list([f"{pDispjet} >= {pdispjet_min}", f"{pDispjet} <= {pdispjet_max}"])
+					idx, ds_jet_sel = pdispjet_cuts(ds_jet)
+					ds_tracks_sel = ds_tracks[idx]
+
+					# Exclude pileup tracks, if desired
+					if self.config.no_pileup:
+						nopileup = ds_tracks['truthVertexIndex'] != -2
+
+					# determine which jets are EJs or QCD
+					is_disp = ds_jet["isDisplaced"] == 1
+					is_prompt = ds_jet["isDisplaced"] == 0
+					is_disp_sel = ds_jet_sel["isDisplaced"] == 1
+					is_prompt_sel = ds_jet_sel["isDisplaced"] == 0
+
+					# Arrays of number of tracks inside jets
+					ej = ds_tracks[is_disp]
+					# Exclude pileup tracks, if desired
+					if self.config.no_pileup:
+						arr_ej = []
+						for j in range(0,len(ds_jet[is_disp])):
+							a = ej[j]['truthVertexIndex'][ej[j]['valid']]
+							a = np.where(a != 2, a, None)
+							a = a[a != None]
+							arr_ej.append(len(a))
+					else:
+						arr_ej = [len(ej[i][self.config.info_type][ej[i]['valid']]) for i in range(0,len(ds_jet[is_disp]))]
+
+					ej_sel = ds_tracks_sel[is_disp_sel]
+					# Exclude pileup tracks, if desired
+					if self.config.no_pileup:
+						arr_ej_sel = []
+						for j in range(0,len(ds_jet_sel[is_disp_sel])):
+							a = ej_sel[j]['truthVertexIndex'][ej_sel[j]['valid']]
+							a = np.where(a != 2, a, None)
+							a = a[a != None]
+							arr_ej_sel.append(len(a))
+					else:
+						arr_ej_sel = [len(ej_sel[i][self.config.info_type][ej_sel[i]['valid']]) for i in range(0,len(ds_jet_sel[is_disp_sel]))]
+					
+					qcd = ds_tracks[is_prompt]
+					# Exclude pileup tracks, if desired
+					if self.config.no_pileup:
+						arr_qcd = []
+						for j in range(0,len(ds_jet[is_prompt])):
+							a = qcd[j]['truthVertexIndex'][qcd[j]['valid']]
+							a = np.where(a != 2, a, None)
+							a = a[a != None]
+							arr_qcd.append(len(a))
+					else:
+						arr_qcd = [len(qcd[i][self.config.info_type][qcd[i]['valid']]) for i in range(0,len(ds_jet[is_prompt]))]
+
+					qcd_sel = ds_tracks_sel[is_prompt_sel]
+					# Exclude pileup tracks, if desired
+					if self.config.no_pileup:
+						arr_qcd_sel = []
+						for j in range(0,len(ds_jet_sel[is_prompt_sel])):
+							a = qcd_sel[j]['truthVertexIndex'][qcd_sel[j]['valid']]
+							a = np.where(a != 2, a, None)
+							a = a[a != None]
+							arr_qcd_sel.append(len(a))
+					else:
+						arr_qcd_sel = [len(qcd_sel[i][self.config.info_type][qcd_sel[i]['valid']]) for i in range(0,len(ds_jet_sel[is_prompt_sel]))]
+
+					min_val = min([min(arr_ej), min(arr_qcd)])
+					max_val = max([max(arr_ej), max(arr_qcd)])
+					if np.abs(min_val) < 0.15*max_val:
+						min_val = 0
+					
+					
+					# set the plot style
+					if i == 0:
+						info_plot = HistogramPlot(
+							bins=np.linspace(min_val, max_val+1E-5,self.config.num_bins),# ,max_val,self.config.num_bins), 
+							**filtered_params
+						)
+					
+					info_plot.add(
+						Histogram(
+							arr_ej,
+							label=f"{sample_config.label}: Emerging Jet",
+							linestyle=linestyles[i]
+						)
+					)
+					info_plot.add(
+						Histogram(
+							arr_qcd,
+							label=f"{sample_config.label}: QCD Jet",
+							linestyle=linestyles[i+1]
+						)
+					)
+					info_plot.add(
+						Histogram(
+							arr_ej_sel,
+							label=f"{sample_config.label}: Emerging Jet with ${pdispjet_min} \\leq p_{{\mathrm{{EJ}}}} \\leq {pdispjet_max}$",
+							linestyle=linestyles[i+2]
+						)
+					)
+					info_plot.add(
+						Histogram(
+							arr_qcd_sel,
+							label=f"{sample_config.label}: QCD Jet with ${pdispjet_min} \\leq p_{{\mathrm{{EJ}}}} \\leq {pdispjet_max}$",
+							linestyle=linestyles[i+3]
+						)
+					)
+					i += 4
+
 			info_plot.draw()
 			info_plot.savefig(self.config.file_name, transparent=False)
 

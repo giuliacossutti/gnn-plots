@@ -10,7 +10,7 @@ style: &style
   xlabel: ""
   figsize: !!python/tuple [6, 6]
   use_atlas_tag: True
-  atlas_second_tag: "$Z'$ portal, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
