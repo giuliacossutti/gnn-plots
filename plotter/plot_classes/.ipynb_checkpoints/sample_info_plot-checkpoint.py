@@ -234,55 +234,70 @@ class SampleInfoPlotBase(PlotBase):
 
 					# Arrays of number of tracks inside jets
 					ej = ds_tracks[is_disp]
+					ej_sel = ds_tracks_sel[is_disp_sel]
+					qcd = ds_tracks[is_prompt]
+					qcd_sel = ds_tracks_sel[is_prompt_sel]
+					
 					# Exclude pileup tracks, if desired
 					if self.config.no_pileup:
 						arr_ej = []
-						for j in range(0,len(ds_jet[is_disp])):
-							a = ej[j]['truthVertexIndex'][ej[j]['valid']]
-							a = np.where(a != -2, a, None)
-							a = a[a != None]
-							arr_ej.append(len(a))
+						arr_ej_sel = []
+						arr_qcd = []
+						arr_qcd_sel = []
+						arrs = [arr_ej,arr_ej_sel,arr_qcd,arr_qcd_sel]
+						jets = [ds_jet,ds_jet_sel,ds_jet,ds_jet_sel]
+						disps = [is_disp,is_disp_sel,is_prompt,is_prompt_sel]
+						tracks = [ej,ej_sel,qcd,qcd_sel]
+
+						# Exclude truth pileup tracks
+						if self.config.info_type == 'truthVertexIndex':
+							for track, arr, jet, disp in zip(tracks,arrs,jets,disps):
+								for j in range(0,len(jet[disp])):
+									a = track[j]['truthVertexIndex'][track[j]['valid']]
+									a = np.where(a != -2, a, None)
+									a = a[a != None]
+									arr.append(len(a))
+
+						# Exclude tracks tagged as pileup
+						elif self.config.info_type == 'tagged_info':
+							label = 'GN3ej-combined-extLabels-fold0-classdict_'
+							for track, arr, jet, disp in zip(tracks,arrs,jets,disps):
+								for j in range(0,len(jet[disp])):
+									ds_tfj_jet = track[j]
+									valid = ds_tfj_jet['valid']
+
+									# Track predicted origin
+									pred_pileup = ds_tfj_jet[label + "ppileup"][valid]
+									pred_fake = ds_tfj_jet[label + "pfake"][valid]
+									pred_primary = ds_tfj_jet[label + "pprimary"][valid]
+									pred_fromB = ds_tfj_jet[label + "pfromB"][valid]
+									pred_fromBC = ds_tfj_jet[label + "pfromBC"][valid]
+									pred_fromC = ds_tfj_jet[label + "pfromC"][valid]
+									pred_fromTau = ds_tfj_jet[label + "pfromTau"][valid]
+									pred_os = ds_tfj_jet[label + "potherSecondary"][valid]
+									pred_disp = ds_tfj_jet[label + "pdisplaced"][valid]
+									
+									origins = []
+									
+									for k, (pu, fk, pr, B, BC, C, Tau, os, dp) in enumerate(zip(pred_pileup, pred_fake, pred_primary, pred_fromB, pred_fromBC, pred_fromC, pred_fromTau, pred_os, pred_disp)):
+										# Predicted origin of track
+										origin = max(pu, fk, pr, B, BC, C, Tau, os, dp)
+										if origin == pu:
+											origins.append(0)
+										else:
+											origins.append(1)
+
+									arr.append(len([x for x in origins if x != 0]))	
 					else:
 						arr_ej = [len(ej[i][self.config.info_type][ej[i]['valid']]) for i in range(0,len(ds_jet[is_disp]))]
-
-					ej_sel = ds_tracks_sel[is_disp_sel]
-					# Exclude pileup tracks, if desired
-					if self.config.no_pileup:
-						arr_ej_sel = []
-						for j in range(0,len(ds_jet_sel[is_disp_sel])):
-							a = ej_sel[j]['truthVertexIndex'][ej_sel[j]['valid']]
-							a = np.where(a != -2, a, None)
-							a = a[a != None]
-							arr_ej_sel.append(len(a))
-					else:
 						arr_ej_sel = [len(ej_sel[i][self.config.info_type][ej_sel[i]['valid']]) for i in range(0,len(ds_jet_sel[is_disp_sel]))]
-					
-					qcd = ds_tracks[is_prompt]
-					# Exclude pileup tracks, if desired
-					if self.config.no_pileup:
-						arr_qcd = []
-						for j in range(0,len(ds_jet[is_prompt])):
-							a = qcd[j]['truthVertexIndex'][qcd[j]['valid']]
-							a = np.where(a != -2, a, None)
-							a = a[a != None]
-							arr_qcd.append(len(a))
-					else:
 						arr_qcd = [len(qcd[i][self.config.info_type][qcd[i]['valid']]) for i in range(0,len(ds_jet[is_prompt]))]
-
-					qcd_sel = ds_tracks_sel[is_prompt_sel]
-					# Exclude pileup tracks, if desired
-					if self.config.no_pileup:
-						arr_qcd_sel = []
-						for j in range(0,len(ds_jet_sel[is_prompt_sel])):
-							a = qcd_sel[j]['truthVertexIndex'][qcd_sel[j]['valid']]
-							a = np.where(a != -2, a, None)
-							a = a[a != None]
-							arr_qcd_sel.append(len(a))
-					else:
 						arr_qcd_sel = [len(qcd_sel[i][self.config.info_type][qcd_sel[i]['valid']]) for i in range(0,len(ds_jet_sel[is_prompt_sel]))]
+						
 
 					min_val = min([min(arr_ej), min(arr_qcd)])
 					max_val = max([max(arr_ej), max(arr_qcd)])
+					
 					if np.abs(min_val) < 0.15*max_val:
 						min_val = 0
 					

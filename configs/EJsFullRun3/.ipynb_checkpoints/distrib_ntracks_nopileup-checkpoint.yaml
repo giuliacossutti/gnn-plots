@@ -20,10 +20,11 @@ plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/distrib_ntracks_nopileup.pdf
+    file_name: ../plots/EJsFullRun3/distrib_ntracks_nopileup_bin1.pdf
     info_df_name: num_tracks
     info_type: 'truthVertexIndex'
-    num_bins: 25
+    #num_bins: 27
+    num_bins: 136
     pEJ_min: 0.98
     pEJ_max: 1.0
     no_pileup: True
