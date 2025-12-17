@@ -239,7 +239,7 @@ class SampleInfoPlotBase(PlotBase):
 						arr_ej = []
 						for j in range(0,len(ds_jet[is_disp])):
 							a = ej[j]['truthVertexIndex'][ej[j]['valid']]
-							a = np.where(a != 2, a, None)
+							a = np.where(a != -2, a, None)
 							a = a[a != None]
 							arr_ej.append(len(a))
 					else:
@@ -251,7 +251,7 @@ class SampleInfoPlotBase(PlotBase):
 						arr_ej_sel = []
 						for j in range(0,len(ds_jet_sel[is_disp_sel])):
 							a = ej_sel[j]['truthVertexIndex'][ej_sel[j]['valid']]
-							a = np.where(a != 2, a, None)
+							a = np.where(a != -2, a, None)
 							a = a[a != None]
 							arr_ej_sel.append(len(a))
 					else:
@@ -263,7 +263,7 @@ class SampleInfoPlotBase(PlotBase):
 						arr_qcd = []
 						for j in range(0,len(ds_jet[is_prompt])):
 							a = qcd[j]['truthVertexIndex'][qcd[j]['valid']]
-							a = np.where(a != 2, a, None)
+							a = np.where(a != -2, a, None)
 							a = a[a != None]
 							arr_qcd.append(len(a))
 					else:
@@ -275,7 +275,7 @@ class SampleInfoPlotBase(PlotBase):
 						arr_qcd_sel = []
 						for j in range(0,len(ds_jet_sel[is_prompt_sel])):
 							a = qcd_sel[j]['truthVertexIndex'][qcd_sel[j]['valid']]
-							a = np.where(a != 2, a, None)
+							a = np.where(a != -2, a, None)
 							a = a[a != None]
 							arr_qcd_sel.append(len(a))
 					else:

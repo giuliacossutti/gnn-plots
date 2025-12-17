@@ -23,7 +23,7 @@ plots:
     file_name: ../plots/EJsFullRun3/distrib_ntracks.pdf
     info_df_name: num_tracks
     info_type: 'truthVertexIndex'
-    num_bins: 25
+    num_bins: 40
     pEJ_min: 0.98
     pEJ_max: 1.0
     no_pileup: False
