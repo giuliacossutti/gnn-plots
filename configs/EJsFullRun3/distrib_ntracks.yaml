@@ -3,7 +3,7 @@ output_dir: output
 samples: &samples
   mc23-fold0:
     path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
-    label: 'GN3ej-combined-extLabels-fold0'
+    label: 'GN3ej-combined-extLabels-fold0-classdict'
 
 style: &style
   ylabel: ""
@@ -20,11 +20,12 @@ plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/distrib_ntracks_bin1.pdf
+    file_name: ../plots/EJsFullRun3/distrib_ntracks.pdf
+    #file_name: ../plots/EJsFullRun3/distrib_ntracks_bin1.pdf
     info_df_name: num_tracks
     info_type: 'truthVertexIndex'
-    #num_bins: 40
-    num_bins: 201
+    num_bins: 40
+    #num_bins: 201
     pEJ_min: 0.98
     pEJ_max: 1.0
     no_pileup: False

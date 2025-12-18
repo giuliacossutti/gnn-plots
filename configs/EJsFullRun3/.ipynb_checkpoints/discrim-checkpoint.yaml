@@ -2,7 +2,7 @@ output_dir: output
 
 samples: &samples
   path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
-  label: 'GN3ej-combined-extLabels-fold0'
+  label: 'GN3ej-combined-extLabels-fold0-classdict-classdict'
 
 style: &style
   ylabel: ""
