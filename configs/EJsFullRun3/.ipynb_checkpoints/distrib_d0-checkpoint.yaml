@@ -30,7 +30,8 @@ plots:
     pEJ_max: 1.0
     style:
       <<: *style
-      ymax: 3
+      ymax: 50
       ylabel: "Normalised number of tracks"
-      xlabel: "d0"
+      xlabel: "Track $d_{0}$ [mm]"
       in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)
+      y_scale: 2.8

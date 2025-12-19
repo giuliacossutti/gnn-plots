@@ -31,5 +31,5 @@ plots:
       <<: *style
       ymax: 3
       ylabel: "Normalised number of tracks"
-      xlabel: "z0SinTheta"
+      xlabel: "Track $z_{0} \\sin{\\theta}$ [mm]"
       in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)
