@@ -26,7 +26,8 @@ class SampleInfoPlotBase(PlotBase):
             "y_scale",
 			"fontsize",
 			"label_fontsize",
-			"atlas_tag_outside"
+			"atlas_tag_outside",
+			"leg_loc",
         }
 		filtered_params = {
         	key: value for key, value in self.config.style.items() if key in required_params
