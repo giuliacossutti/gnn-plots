@@ -28,6 +28,8 @@ class SampleInfoPlotBase(PlotBase):
 			"label_fontsize",
 			"atlas_tag_outside",
 			"leg_loc",
+			"xmin",
+			"xmax",
         }
 		filtered_params = {
         	key: value for key, value in self.config.style.items() if key in required_params
@@ -142,8 +144,12 @@ class SampleInfoPlotBase(PlotBase):
 					is_prompt_sel = ds_jet_sel["isDisplaced"] == 0
 
 					# extract track info
-					info = ds_tracks[self.config.info_type]
-					info_sel = ds_tracks_sel[self.config.info_type]
+					if self.config.style['in_TeV']:
+						info = ds_tracks[self.config.info_type]/1e6
+						info_sel = ds_tracks_sel[self.config.info_type]/1e6
+					else:
+						info = ds_tracks[self.config.info_type]
+						info_sel = ds_tracks_sel[self.config.info_type]
 
 					# parse the data to obtain the EJ track info
 					ej = info[is_disp]
