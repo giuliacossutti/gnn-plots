@@ -72,6 +72,9 @@ class SampleInfoPlotBase(PlotBase):
 					if self.config.style['in_TeV']:
 						info = ds_jet[self.config.info_type]/1e6
 						info_sel = ds_jet_sel[self.config.info_type]/1e6
+					elif self.config.style['in_1OverTeV']:
+						info = ds_jet[self.config.info_type]*1e6
+						info_sel = ds_jet_sel[self.config.info_type]*1e6
 					else:
 						info = ds_jet[self.config.info_type]
 						info_sel = ds_jet_sel[self.config.info_type]
@@ -147,6 +150,12 @@ class SampleInfoPlotBase(PlotBase):
 					if self.config.style['in_TeV']:
 						info = ds_tracks[self.config.info_type]/1e6
 						info_sel = ds_tracks_sel[self.config.info_type]/1e6
+					elif self.config.style['in_1OverTeV']:
+						info = ds_tracks[self.config.info_type]*1e6
+						info_sel = ds_tracks_sel[self.config.info_type]*1e6
+					elif self.config.style['rate']:
+						info = ds_tracks[self.config.info_type]/ds_tracks[self.config.rate_type]
+						info_sel = ds_tracks_sel[self.config.info_type]/ds_tracks_sel[self.config.rate_type]
 					else:
 						info = ds_tracks[self.config.info_type]
 						info_sel = ds_tracks_sel[self.config.info_type]
@@ -170,6 +179,7 @@ class SampleInfoPlotBase(PlotBase):
 					cleaned_qcd_sel = qcd_1d_sel[~np.isnan(qcd_1d_sel)] # get rid of the nan entries
 
 					min_val = min([min(cleaned_ej), min(cleaned_qcd)])
+					print("min: ", min_val)
 					max_val = max([max(cleaned_ej), max(cleaned_qcd)])
 					if np.abs(min_val) < 0.15*max_val:
 						min_val = 0

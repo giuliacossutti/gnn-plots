@@ -16,22 +16,25 @@ style: &style
   fontsize: 11
   label_fontsize: 15
   atlas_tag_outside: True
+  leg_loc: 'best'
 
 plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/distrib_trackpT.pdf
+    file_name: ../plots/EJsFullRun3/distrib_qOverPSignificance.pdf
     info_df_name: tracks
-    info_type: pt
-    num_bins: 80000
+    info_type: qOverP
+    rate_type: qOverPUncertainty
+    num_bins: 50
     pEJ_min: 0.98
     pEJ_max: 1.0
     style:
       <<: *style
-      ymax: 3
-      xmax: 1
-      xmin: 0
+      ymax: 100
       ylabel: "Normalised number of tracks"
-      xlabel: "Track $p_T$ [TeV]"
-      in_TeV: True  # specifies whether to set x labels to TeV (for pt, energy, etc)
+      xlabel: "Track $\\frac{q/p}{\\sigma_{q/p}}$"
+      rate: True # whether to plot the rate between info_type and rate_type
+      in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)
+      in_1OverTeV: False  # specifies whether to set x labels to 1/TeV (for qOverP, etc)
+      y_scale: 2.8

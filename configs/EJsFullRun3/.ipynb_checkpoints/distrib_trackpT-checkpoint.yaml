@@ -24,13 +24,13 @@ plots:
     file_name: ../plots/EJsFullRun3/distrib_trackpT.pdf
     info_df_name: tracks
     info_type: pt
-    num_bins: 800
+    num_bins: 80000
     pEJ_min: 0.98
     pEJ_max: 1.0
     style:
       <<: *style
       ymax: 3
-      xmax: 100
+      xmax: 1
       xmin: 0
       ylabel: "Normalised number of tracks"
       xlabel: "Track $p_T$ [TeV]"
