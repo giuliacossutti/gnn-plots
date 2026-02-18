@@ -239,24 +239,21 @@ class SampleInfoPlotBase(PlotBase):
 					idx, ds_jet_sel = pdispjet_cuts(ds_jet)
 					ds_tracks_sel = ds_tracks[idx]
 
-					# Exclude pileup tracks, if desired
-					if self.config.no_pileup:
-						nopileup = ds_tracks['truthVertexIndex'] != -2
-
 					# determine which jets are EJs or QCD
 					is_disp = ds_jet["isDisplaced"] == 1
 					is_prompt = ds_jet["isDisplaced"] == 0
 					is_disp_sel = ds_jet_sel["isDisplaced"] == 1
 					is_prompt_sel = ds_jet_sel["isDisplaced"] == 0
 
-					# Arrays of number of tracks inside jets
+					# Arrays of tracks inside jets
 					ej = ds_tracks[is_disp]
 					ej_sel = ds_tracks_sel[is_disp_sel]
 					qcd = ds_tracks[is_prompt]
 					qcd_sel = ds_tracks_sel[is_prompt_sel]
-					
+
+					# Build arrays of number of tracks inside jets
 					# Exclude pileup tracks, if desired
-					if self.config.no_pileup:
+					if self.config.no_pileup or self.config.no_lowpT:
 						arr_ej = []
 						arr_ej_sel = []
 						arr_qcd = []
@@ -266,6 +263,15 @@ class SampleInfoPlotBase(PlotBase):
 						disps = [is_disp,is_disp_sel,is_prompt,is_prompt_sel]
 						tracks = [ej,ej_sel,qcd,qcd_sel]
 
+						# Exclude tracks with pT lower than a threshold
+						if self.config.no_lowpT:
+							for track, arr, jet, disp in zip(tracks,arrs,jets,disps):
+								for j in range(0,len(jet[disp])):
+									a = track[j]['pt'][track[j]['valid']]
+									a = np.where(a > self.config.pT_threshold, a, None)
+									a = a[a != None]
+									arr.append(len(a))
+						
 						# Exclude truth pileup tracks
 						if self.config.info_type == 'truthVertexIndex':
 							for track, arr, jet, disp in zip(tracks,arrs,jets,disps):
@@ -314,6 +320,11 @@ class SampleInfoPlotBase(PlotBase):
 
 					min_val = min([min(arr_ej), min(arr_qcd)])
 					max_val = max([max(arr_ej), max(arr_qcd)])
+					print("min: ", min_val, " max: ", max_val)
+
+					# Number of tracks is an integer: make suitable boundaries. Number of bins should divide the x axis range
+					min_val = min_val - 0.5
+					max_val = max_val + 0.5
 					
 					if np.abs(min_val) < 0.15*max_val:
 						min_val = 0
@@ -322,7 +333,7 @@ class SampleInfoPlotBase(PlotBase):
 					# set the plot style
 					if i == 0:
 						info_plot = HistogramPlot(
-							bins=np.linspace(min_val, max_val+1E-5,self.config.num_bins),# ,max_val,self.config.num_bins), 
+							bins=np.linspace(min_val, max_val,self.config.num_bins),# ,max_val,self.config.num_bins), 
 							**filtered_params
 						)
 					

@@ -29,6 +29,7 @@ plots:
     pEJ_min: 0.98
     pEJ_max: 1.0
     no_pileup: False
+    no_lowpT: False
     style:
       <<: *style
       ymax: 3

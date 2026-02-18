@@ -20,19 +20,18 @@ plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/distrib_ntracks_nopileup.pdf
-    #file_name: ../plots/EJsFullRun3/distrib_ntracks_nopileup_bin1.pdf
+    file_name: ../plots/EJsFullRun3/distrib_ntracks_nolowpT.pdf
     info_df_name: num_tracks
-    info_type: 'truthVertexIndex'
-    num_bins: 27
-    #num_bins: 136
+    info_type: pt
+    num_bins: 162
     pEJ_min: 0.98
     pEJ_max: 1.0
-    no_pileup: True
-    no_lowpT: False
+    no_pileup: False
+    no_lowpT: True
+    pT_threshold: 1000. # track pT lower threshold [MeV]
     style:
       <<: *style
       ymax: 3
       ylabel: "Normalised number of jets"
-      xlabel: "Number of valid non-pileup tracks inside a jet"
+      xlabel: "Number of valid tracks with pT > 1 GeV inside a jet"
       in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)
