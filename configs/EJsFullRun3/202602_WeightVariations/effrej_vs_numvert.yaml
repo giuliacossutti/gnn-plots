@@ -1,0 +1,47 @@
+output_dir: output
+
+samples: &samples
+  GN3ej_HPC:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
+    label: "Current GN3ej"
+    reference: True
+    df_name: 'tracks'
+#  GN3ej_AI_INFN:
+#    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+#    label: "Current GN3ej AI_INFN"
+#    reference: False
+#    df_name: 'tracks'
+  EqualContrib:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
+    label: "equalcontrib"
+    reference: False
+    df_name: 'tracks'
+  
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7, 7]
+  leg_loc: lower right
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 14
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+   numvert_perf:
+     class: plotter.plot_classes.num_vert_perf_plot.NumVertPerfPlotBase
+     samples: *samples
+     sig_eff_filename: ../plots/EJsFullRun3/WeightComparison/EJ_eff_vs_NumJets.pdf
+     bkg_rej_filename: ../plots/EJsFullRun3/WeightComparison/QCD_rej_vs_NumJets.pdf
+     working_point: 0.98
+     binedges: [0,1,2,3,4,6,8,10,14] # or can specify np.linspace / np.arange
+     sig_eff_leg_loc: lower right
+     bkg_rej_leg_loc: upper right
+     style:
+       <<: *style
+       grid: True
+       figsize: !!python/tuple [7,7]
+       y_scale: 1.0
+       atlas_tag_outside: True

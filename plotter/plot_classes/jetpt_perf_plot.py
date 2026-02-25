@@ -38,6 +38,7 @@ class JetPtPerfPlotBase(PlotBase):
 			ylabel="Emerging jet efficiency",
 			xlabel=r"$p_{T}$ [TeV]",
 			logy=False,
+			n_ratio_panels=1,
 			**filtered_params
 		)
 
@@ -47,6 +48,7 @@ class JetPtPerfPlotBase(PlotBase):
 			xlabel=r"$p_{T}$ [TeV]",
 			logy=True,
 			ymin=500,
+			n_ratio_panels=1,
 			**filtered_params
 		)
 
@@ -55,6 +57,7 @@ class JetPtPerfPlotBase(PlotBase):
 		# ------------------------------------
 		for _, sample in self.config.samples.items():
 			sample_config = ConfigDict(sample)
+			print(sample_config.path)
 			with h5py.File(sample_config.path, "r") as hdf_file:
 				ds_jet = hdf_file["jets"]
 				
@@ -65,7 +68,7 @@ class JetPtPerfPlotBase(PlotBase):
 				
 				# search for which key contains the probability of being displaced
 				for i, key in enumerate(keys_list):
-					print(key)
+					#print(key)
 					if "pdispjet" in key:
 						pDisp = keys_list[i]
 						#print("found: ", pDisp)
@@ -101,19 +104,19 @@ class JetPtPerfPlotBase(PlotBase):
 					working_point = None,
 					disc_cut = wp,
 					label = sample_config.label,
-					linewidth = 1.2
+					linewidth = 1.2,
 				)
 
 
 				# ADD THE CURVES TO THE PLOTS
 				# ---------------------------
-				plot_sig_eff.add(gnn_ej, reference=True)
-				plot_sig_eff.leg_loc = self.config.sig_eff_leg_loc
-				plot_sig_eff.atlas_second_tag += f", Score > {wp}"
-
-				plot_bkg_rej.add(gnn_ej, reference=True)
-				plot_bkg_rej.leg_loc = self.config.bkg_rej_leg_loc
-				plot_bkg_rej.atlas_second_tag += f", Score > {wp}"
+				plot_sig_eff.add(gnn_ej, reference=sample_config.reference)
+				plot_bkg_rej.add(gnn_ej, reference=sample_config.reference)
+				
+		plot_sig_eff.leg_loc = self.config.sig_eff_leg_loc
+		plot_sig_eff.atlas_second_tag += f", Score > {wp}"
+		plot_bkg_rej.leg_loc = self.config.bkg_rej_leg_loc
+		plot_bkg_rej.atlas_second_tag += f", Score > {wp}"
 
 
 		# DRAW AND SAVE THE PLOTS

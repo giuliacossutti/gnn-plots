@@ -1,0 +1,37 @@
+output_dir: output
+
+samples: &samples
+  one:
+    path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+    label: 'GN3ej-combined-extLabels-fold0-classdict'
+    reference: True
+    df_name: 'tracks'
+  
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7, 7]
+  leg_loc: lower right
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 14
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+   numvert_perf:
+     class: plotter.plot_classes.num_vert_perf_plot.NumVertPerfPlotBase
+     samples: *samples
+     sig_eff_filename: ../plots/EJsFullRun3/FirstTraining/EJ_eff_vs_NumJets.pdf
+     bkg_rej_filename: ../plots/EJsFullRun3/FirstTraining/QCD_rej_vs_NumJets.pdf
+     working_point: 0.98
+     binedges: [0,1,2,3,4,6,8,10,14] # or can specify np.linspace / np.arange
+     sig_eff_leg_loc: lower right
+     bkg_rej_leg_loc: upper right
+     style:
+       <<: *style
+       grid: True
+       figsize: !!python/tuple [7,5]
+       y_scale: 1.0
+       atlas_tag_outside: True

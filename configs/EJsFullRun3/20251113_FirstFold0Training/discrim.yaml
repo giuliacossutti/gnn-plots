@@ -1,0 +1,34 @@
+output_dir: output
+
+samples: &samples
+  path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+  label: 'GN3ej-combined-extLabels-fold0-classdict-classdict'
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7, 5]
+  logy: True
+  use_atlas_tag: True
+  #atlas_brand: ""
+  #atlas_first_tag: "Simulation Internal"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  discrim:
+    class: plotter.plot_classes.discrim_plot.DiscrimPlotBase
+    samples: *samples
+    low: 0.00
+    high: 1.00
+    dx: 0.01
+    file_name: ../plots/EJsFullRun3/FirstTraining/discrim.pdf
+    style:
+      <<: *style
+      n_ratio_panels: 1
+      ylabel: "Normalized number of jets"
+      xlabel: "GN3ej Discriminant"
+      y_scale: 1.3

@@ -1,0 +1,52 @@
+output_dir: output
+
+samples: &samples
+  GN3ej_HPC:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
+    label: "Current GN3ej"
+    reference: True
+    df_name: jets
+#  GN3ej_AI_INFN:
+#    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+#    label: "Current GN3ej AI_INFN"
+#    reference: False
+#    df_name: jets
+  EqualContrib:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
+    label: "equalcontrib"
+    reference: False
+    df_name: jets
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7, 6]
+  use_atlas_tag: True
+  #atlas_brand: ""
+  #atlas_first_tag: "Simulation Internal"
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  label_fontsize: 15
+  fontsize: 15
+  atlas_fontsize: 15
+
+plots:
+  roc:
+    class: plotter.plot_classes.roc_plot.RocPlotBase
+    samples: *samples
+    file_name: ../plots/EJsFullRun3/WeightComparison/roc.pdf
+    target_label: isDisplaced
+    tagger_output: GN3ej-fold0
+    range: !!python/tuple [0.80, 1, 100]
+    leg_inside: True
+    leg_fontsize: 12
+    reference_label: "current GN3ej"
+    show_cuts: True
+    cut_values: [0.98]  # or None
+    #cut_values: [0.90,0.98,0.99]  # or None
+    style:
+      <<: *style
+      n_ratio_panels: 1
+      ylabel: "QCD rejection"
+      xlabel: "EJ tagging efficiency"
+      y_scale: 1.5

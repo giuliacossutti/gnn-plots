@@ -47,6 +47,7 @@ class NumVertPerfPlotBase(PlotBase):
 			ylabel = "Emerging jet efficiency",
 			xlabel = r"Number of vertices in jet",
 			logy = False,
+			n_ratio_panels=1,
 			**filtered_params
 		)
 
@@ -55,6 +56,7 @@ class NumVertPerfPlotBase(PlotBase):
 			ylabel = "QCD jet rejection",
 			xlabel = r"Number of vertices in jet",
 			logy = False,
+			n_ratio_panels=1,
 			**filtered_params
 		)
 
@@ -63,6 +65,7 @@ class NumVertPerfPlotBase(PlotBase):
 		# ---------------------------------------
 		for _, sample in self.config.samples.items():
 			sample_config = ConfigDict(sample)
+			print(sample_config.path)
 			with h5py.File(sample_config.path, "r") as hdf_file:
 				# jet information dataframe
 				ds_jet = pd.DataFrame(hdf_file["jets"][:])
@@ -119,14 +122,13 @@ class NumVertPerfPlotBase(PlotBase):
 
 				# ADD THE CURVES TO THE PLOTS
 				# ---------------------------
-				plot_sig_eff.add(gnn_ej)
-				plot_sig_eff.leg_loc = self.config.sig_eff_leg_loc
-				plot_sig_eff.atlas_second_tag += f", Score > {wp}"
-
-				plot_bkg_rej.add(gnn_ej)
-				plot_bkg_rej.leg_loc = self.config.bkg_rej_leg_loc
-				plot_bkg_rej.atlas_second_tag += f", Score > {wp}"
-
+				plot_sig_eff.add(gnn_ej, reference=sample_config.reference)
+				plot_bkg_rej.add(gnn_ej, reference=sample_config.reference)
+				
+		plot_sig_eff.leg_loc = self.config.sig_eff_leg_loc
+		plot_sig_eff.atlas_second_tag += f", Score > {wp}"
+		plot_bkg_rej.leg_loc = self.config.bkg_rej_leg_loc
+		plot_bkg_rej.atlas_second_tag += f", Score > {wp}"
 
 		# DRAW AND SAVE THE PLOTS
 		plot_sig_eff.draw()

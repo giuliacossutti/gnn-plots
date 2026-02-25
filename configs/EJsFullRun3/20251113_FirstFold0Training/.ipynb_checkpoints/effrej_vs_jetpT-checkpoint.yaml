@@ -1,0 +1,34 @@
+output_dir: output
+
+samples: &samples
+  one:
+    path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+    label: 'GN3ej-combined-extLabels-fold0-classdict'
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 6]
+  use_atlas_tag: True
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 15
+  label_fontsize: 15
+  dpi: 300
+
+plots:
+  jetpt_perf:
+    class: plotter.plot_classes.jetpt_perf_plot.JetPtPerfPlotBase
+    samples: *samples
+    sig_eff_filename: ../plots/EJsFullRun3/FirstTraining/EJ_eff_vs_jetpT.pdf
+    bkg_rej_filename: ../plots/EJsFullRun3/FirstTraining/QCD_rej_vs_jetpT.pdf
+    working_point: 0.98
+    binedges: [0.2,0.3,0.4,0.6,0.8,1.2,2.25]  # in TeV
+    sig_eff_leg_loc: lower right
+    bkg_rej_leg_loc: lower right
+    style:
+      <<: *style
+      grid: True
+      figsize: !!python/tuple [7,5]
+      y_scale: 1.0
+      atlas_tag_outside: True

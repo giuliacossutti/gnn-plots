@@ -1,0 +1,34 @@
+output_dir: output
+
+samples: &samples
+  mc23-fold0:
+    path: '/home/private/EmergingJetTagger/salt/salt/logs/20251113_FirstFold0Training/ckpts/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+    label: 'GN3ej-combined-extLabels-fold0-classdict'
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [7.5, 5]
+  atlas_second_tag: "$\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 2.8
+  logy: True
+  fontsize: 11
+  label_fontsize: 15
+  atlas_tag_outside: True
+
+plots:
+  sample_info:
+    class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
+    samples: *samples
+    file_name: ../plots/EJsFullRun3/FirstTraining/distrib_jetpT.pdf
+    info_df_name: jets
+    info_type: pt
+    num_bins: 50
+    pEJ_min: 0.98
+    pEJ_max: 1.0
+    style:
+      <<: *style
+      ymax: 3
+      ylabel: "Normalised number of jets"
+      xlabel: "Jet pT [TeV]"
+      in_TeV: True  # specifies whether to set x labels to TeV (for pt, energy, etc)
