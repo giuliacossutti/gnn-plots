@@ -16,6 +16,11 @@ samples: &samples
     label: "equalcontrib"
     reference: False
     df_name: 'tracks'
+  EnhanceJet:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceJet/epoch=008-val_jet_loss=0.02734__test_9574840.pp_output_val.h5'
+    label: "enhancejet"
+    reference: False
+    df_name: 'tracks'
   
 style: &style
   ylabel: ""

@@ -9,10 +9,13 @@ samples: &samples
 #    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
 #    label: "Current GN3ej AI_INFN"
 #    reference: False
-#    df_name: jets
   EqualContrib:
     path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
     label: "equalcontrib"
+    reference: False
+  EnhanceJet:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceJet/epoch=008-val_jet_loss=0.02734__test_9574840.pp_output_val.h5'
+    label: "enhancejet"
     reference: False
 
 style: &style
