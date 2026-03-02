@@ -21,6 +21,11 @@ samples: &samples
     label: "enhancejet"
     reference: False
     df_name: 'tracks'
+  EnhanceTrackOrigin:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceTrackOrigin/epoch=009-val_jet_loss=0.02562__test_9574840.pp_output_val.h5'
+    label: "enhancetrackorigin"
+    reference: False
+    df_name: 'tracks'
   
 style: &style
   ylabel: ""
