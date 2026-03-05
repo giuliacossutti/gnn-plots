@@ -74,11 +74,13 @@ class ConfMatPlotBase(PlotBase):
 					pFromTau = keys_list[i]
 				elif "potherSecondary" in key:
 					pOtherSecondary = keys_list[i]
+				elif "pdispjet" in key: # for jets confusion matrix
+					pdispjet = keys_list[i]
 
 			if sample.df_name == 'jets':
 				# extract classification labels
-				true_class = np.array(ds_tfj['isDisplaced'])
-				pred_disp = np.array(ds_tfj[pDisp])
+				true_class = np.array(limited_data['isDisplaced'])
+				pred_disp = np.array(limited_data[pdispjet])
 				pred_prompt = 1.0 - pred_disp
 
 				# initialize predicted classification labels
@@ -86,7 +88,8 @@ class ConfMatPlotBase(PlotBase):
 
 				# update pred_class with most likely predicted jet classification
 				for i, (pd, pp) in enumerate(zip(pred_disp, pred_prompt)):
-					if pd > pp:
+					#if pd > pp:  # corresconds to score = 0.5
+					if pd > sample.score:
 						pred_class[i] = 1  # displaced
 					else:
 						pred_class[i] = 0  # prompt

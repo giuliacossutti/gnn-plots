@@ -21,6 +21,10 @@ samples: &samples
     path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceTrackOrigin/epoch=009-val_jet_loss=0.02562__test_9574840.pp_output_val.h5'
     label: "enhancetrackorigin"
     reference: False
+  EnhanceVertexing:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceVertexing/epoch=008-val_jet_loss=0.02627__test_9574840.pp_output_val.h5'
+    label: "enhancevertexing"
+    reference: False
 
 style: &style
   ylabel: ""
