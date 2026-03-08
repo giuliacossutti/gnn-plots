@@ -43,11 +43,15 @@ class DiscrimPlotBase(PlotBase):
 			ds = hdf_file['jets']
 
 			keys_list = list(ds.dtype.fields.keys())
-			GN2ej_pdispjet = keys_list[-2]
 
+			# search for which key contains the GNN signal discriminant
+			for i, key in enumerate(keys_list):
+				#print(key)
+				if "pdispjet" in key:
+					GN2ej_pdispjet = keys_list[i]
+				
 			df = pd.DataFrame({'isDisplaced': np.array(ds['isDisplaced']).transpose(),
-							  #'GN2ej_pdispjet': np.array(ds[GN2ej_pdispjet]).transpose()})
-							   'GN2ej_pdispjet': np.array(ds["GN3ej-combined-extLabels-fold0-classdict_pdispjet"]).transpose()})
+							  'GN2ej_pdispjet': np.array(ds[GN2ej_pdispjet]).transpose()})
 			df = df.dropna()
 		    
 		    # defining boolean arrays to select the different flavour classes

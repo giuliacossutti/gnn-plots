@@ -1,8 +1,8 @@
 output_dir: output
 
 samples: &samples
-  path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-  label: 'Current GN3ej'
+  path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceJet/epoch=008-val_jet_loss=0.02734__test_9574840.pp_output_val.h5'
+  label: 'enhancejet'
 
 style: &style
   ylabel: ""
@@ -12,7 +12,7 @@ style: &style
   use_atlas_tag: True
   #atlas_brand: ""
   #atlas_first_tag: "Simulation Internal"
-  atlas_second_tag: "Current GN3ej, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "enhancejet, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -25,7 +25,7 @@ plots:
     low: 0.00
     high: 1.00
     dx: 0.01
-    file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/discrim.pdf
+    file_name: ../plots/EJsFullRun3/WeightComparison/enhancejet/discrim.pdf
     style:
       <<: *style
       n_ratio_panels: 1

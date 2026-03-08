@@ -1,8 +1,8 @@
 output_dir: output
 
 samples: &samples
-  path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-  label: 'Current GN3ej'
+  path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceJet/epoch=008-val_jet_loss=0.02734__test_9574840.pp_output_val.h5'
+  label: 'enhancejet'
   df_name: tracks
 
 style: &style
@@ -11,7 +11,7 @@ style: &style
   figsize: !!python/tuple [10, 5]
   use_atlas_tag: True
   atlas_first_tag: "Simulation Internal"
-  atlas_second_tag: "Current GN3ej, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "enhancejet, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 15
   label_fontsize: 15
@@ -21,7 +21,7 @@ plots:
   vertex:
     class: plotter.plot_classes.vertex_plot_9labels.VertexPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/VImatrices/0jet20-VImat.pdf
+    file_name: ../plots/EJsFullRun3/WeightComparison/enhancejet/VImatrices/0jet20-VImat.pdf
     jet_num: 20
     pEJ_min: 0.98
     pEJ_max: 1.0

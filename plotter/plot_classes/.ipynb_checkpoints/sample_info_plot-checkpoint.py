@@ -283,7 +283,7 @@ class SampleInfoPlotBase(PlotBase):
 
 						# Exclude tracks tagged as pileup
 						elif self.config.info_type == 'tagged_info':
-							label = 'GN3ej-combined-extLabels-fold0-classdict_'
+							label = pDispjet[:-8]
 							for track, arr, jet, disp in zip(tracks,arrs,jets,disps):
 								for j in range(0,len(jet[disp])):
 									ds_tfj_jet = track[j]

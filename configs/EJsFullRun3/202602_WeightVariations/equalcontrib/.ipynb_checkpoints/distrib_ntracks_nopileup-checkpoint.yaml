@@ -2,14 +2,14 @@ output_dir: output
 
 samples: &samples
   mc23-fold0:
-    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-    label: 'Current GN3ej'
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
+    label: 'equalcontrib'
 
 style: &style
   ylabel: ""
   xlabel: ""
   figsize: !!python/tuple [7.5, 6.5]
-  atlas_second_tag: "Current GN3ej, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "equalcontrib, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 2.8
   logy: True
   fontsize: 11
@@ -20,12 +20,12 @@ plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/distrib_ntracks_nopileup_tagged_bin1.pdf
-    #file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/distrib_ntracks_nopileup_tagged.pdf
+    #file_name: ../plots/EJsFullRun3/WeightComparison/equalcontrib/distrib_ntracks_nopileup.pdf
+    file_name: ../plots/EJsFullRun3/WeightComparison/equalcontrib/distrib_ntracks_nopileup_bin1.pdf
     info_df_name: num_tracks
-    info_type: 'tagged_info'
-    #num_bins: 31
-    num_bins: 156
+    info_type: 'truthVertexIndex'
+    #num_bins: 27
+    num_bins: 136
     pEJ_min: 0.98
     pEJ_max: 1.0
     no_pileup: True
@@ -34,5 +34,5 @@ plots:
       <<: *style
       ymax: 3
       ylabel: "Normalised number of jets"
-      xlabel: "Number of valid non-pileup-tagged tracks inside a jet"
+      xlabel: "Number of valid non-pileup tracks inside a jet"
       in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)

@@ -1,0 +1,34 @@
+output_dir: output
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 6]
+  use_atlas_tag: True
+  #atlas_brand: ""
+  #atlas_first_tag: "Simulation Internal"
+  atlas_second_tag: "enhancevertexing, Track origin confusion matrix, $\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 20
+  label_fontsize: 20
+  dpi: 300
+  atlas_tag_outside: True
+
+plots:
+  conf_mat:
+    class: plotter.plot_classes.confusion_matrix_ext9Labels_plot.ConfMatPlotBase
+    samples:
+      path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceVertexing/epoch=008-val_jet_loss=0.02627__test_9574840.pp_output_val.h5'
+      label: 'enhancevertexing'
+      df_name: tracks
+    task_type: track_origin # two options are track_origin, jet_classification
+    file_name: ../plots/EJsFullRun3/WeightComparison/enhancevertexing/confusion.pdf
+    style:
+      <<: *style
+      xlabel: GN3ej prediction
+      ylabel: Truth labels
+      figsize: !!python/tuple [11,11]
+      show_entries: True
+      text_color_threshold: 0.6
+      colormap: GnBu
+      cbar_label: ""

@@ -2,8 +2,8 @@ output_dir: output
 
 samples: &samples
   mc23-fold0:
-    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-    label: 'Current GN3ej'
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceTrackOrigin/epoch=009-val_jet_loss=0.02562__test_9574840.pp_output_val.h5'
+    label: 'enhancetrackorigin'
 
 style: &style
   y_max: 10
@@ -21,9 +21,9 @@ plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/distrib_ppileup.pdf
+    file_name: ../plots/EJsFullRun3/WeightComparison/enhancetrackorigin/distrib_pdisplaced.pdf
     info_df_name: tracks
-    info_type: GN3ej-combined-extLabels-fold0-classdict_ppileup
+    info_type: GN3ej-combined-extLabels-fold0-classdict-enhancetrackorigin_pdisplaced
     num_bins: 50
     pEJ_min: 0.98
     pEJ_max: 1.0
@@ -31,7 +31,7 @@ plots:
       <<: *style
       ymax: 3
       ylabel: "Normalised number of tracks"
-      xlabel: "Probability of pile-up track origin"
+      xlabel: "Probability of displaced track origin"
       rate: False # whether to plot the rate between info_type and rate_type
       in_TeV: False  # specifies whether to set x labels to TeV (for pt, energy, etc)
       in_1OverTeV: False  # specifies whether to set x labels to 1/TeV (for qOverP, etc)

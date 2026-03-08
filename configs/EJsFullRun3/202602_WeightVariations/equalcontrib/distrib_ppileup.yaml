@@ -2,8 +2,8 @@ output_dir: output
 
 samples: &samples
   mc23-fold0:
-    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-    label: 'Current GN3ej'
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
+    label: 'equalcontrib'
 
 style: &style
   y_max: 10
@@ -21,9 +21,9 @@ plots:
   sample_info:
     class: plotter.plot_classes.sample_info_plot.SampleInfoPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/distrib_ppileup.pdf
+    file_name: ../plots/EJsFullRun3/WeightComparison/equalcontrib/distrib_ppileup.pdf
     info_df_name: tracks
-    info_type: GN3ej-combined-extLabels-fold0-classdict_ppileup
+    info_type: GN3ej-combined-extLabels-fold0-classdict-equalcontrib_ppileup
     num_bins: 50
     pEJ_min: 0.98
     pEJ_max: 1.0
