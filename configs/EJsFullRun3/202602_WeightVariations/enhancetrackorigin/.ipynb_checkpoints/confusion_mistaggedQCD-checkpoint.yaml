@@ -7,7 +7,7 @@ style: &style
   use_atlas_tag: True
   #atlas_brand: ""
   #atlas_first_tag: "Simulation Internal"
-  atlas_second_tag: "Current GN3ej, Track origin confusion matrix, $\\sqrt{{s}}=13.6$ TeV"
+  atlas_second_tag: "enhancetrackorigin, tracks of mistagged QCD jets, $\\sqrt{{s}}=13.6$ TeV"
   y_scale: 1.0
   fontsize: 20
   label_fontsize: 20
@@ -18,12 +18,15 @@ plots:
   conf_mat:
     class: plotter.plot_classes.confusion_matrix_ext9Labels_plot.ConfMatPlotBase
     samples:
-      path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-      label: 'Current GN3ej (leonardo)'
+      path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260221_EnhanceTrackOrigin/epoch=009-val_jet_loss=0.02562__test_9574840.pp_output_val.h5'
+      label: 'enhancetrackorigin'
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
-    file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/confusion.pdf
-    only_mistagged_QCD: False
+    file_name: ../plots/EJsFullRun3/WeightComparison/enhancetrackorigin/confusion_mistaggedQCD.pdf
+    only_mistagged_QCD: True
+    pEJ_min: 0.98
+    pEJ_max: 1.0
+    is_Disp: 0 # 0 for truth prompt jet, 1 for truth emerging jet
     style:
       <<: *style
       xlabel: GN3ej prediction

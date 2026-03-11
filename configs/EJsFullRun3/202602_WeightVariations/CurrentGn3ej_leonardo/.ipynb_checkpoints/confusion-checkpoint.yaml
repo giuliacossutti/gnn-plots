@@ -23,6 +23,7 @@ plots:
       df_name: tracks
     task_type: track_origin # two options are track_origin, jet_classification
     file_name: ../plots/EJsFullRun3/WeightComparison/CurrentGN3ej_leonardo/confusion.pdf
+    only_mistagged_QCD: False
     style:
       <<: *style
       xlabel: GN3ej prediction

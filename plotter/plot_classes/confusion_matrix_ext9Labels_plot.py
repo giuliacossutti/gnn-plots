@@ -5,6 +5,7 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 from plotter.plot_classes.plotbase import PlotBase
+from ftag import Cuts
 
 class ConfMatPlotBase(PlotBase):
 	"""
@@ -98,6 +99,24 @@ class ConfMatPlotBase(PlotBase):
 				confmat = confusion_matrix.confusion_matrix(targets=true_class, predictions=pred_class)
 
 			elif sample.df_name == 'tracks':
+				if self.config.only_mistagged_QCD == True:
+					ds_jet = hdf_file["jets"]
+					jet_keys_list = list(ds_jet.dtype.fields.keys())
+					
+					for j, key in enumerate(jet_keys_list):
+						#print(key)
+						if "pdispjet" in key:
+						    pDispjet = jet_keys_list[j]
+
+					# Minimum and maximum probability of being displaced for selected jets
+					pdispjet_min = self.config.pEJ_min
+					pdispjet_max = self.config.pEJ_max
+				
+					# Select jets with desired probability of being displaced and truth is_Displaced
+					pdispjet_cuts = Cuts.from_list([f"{pDispjet} >= {pdispjet_min}", f"{pDispjet} <= {pdispjet_max}", f"isDisplaced == {self.config.is_Disp}"])
+					idx, ds_jet_sel = pdispjet_cuts(ds_jet)
+					ds_tfj = limited_data[idx]
+
 				valid = np.array(ds_tfj['valid'])
 				
 				# extract valid origin labels
@@ -143,6 +162,11 @@ class ConfMatPlotBase(PlotBase):
 
 				print("Max label in predictions:", np.max(pred_origin))
 				print("Max label in targets:", np.max(true_origin))
+
+				if (np.max(true_origin) + 0.5) < np.max(pred_origin) and self.config.only_mistagged_QCD == True:
+					true_origin = np.append(true_origin, np.max(pred_origin))
+					pred_origin = np.append(pred_origin, np.max(pred_origin))
+				
 				print("true_origin:", true_origin)
 
 				print("\nNumber of jets:",len(ds_tfj))
