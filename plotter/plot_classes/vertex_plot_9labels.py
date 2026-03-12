@@ -136,7 +136,8 @@ class VertexPlotBase(PlotBase):
             is_Disp = self.config.is_Disp
 
             # extract jet information
-            ds_jet = hdf_file['jets'][:100000]
+            ds_jet = hdf_file['jets']
+            #ds_jet = hdf_file['jets'][:100000] # only if too many to load in memory
             keys_list = list(ds_jet.dtype.fields.keys())
 
             # search for which key contains the probability of being displaced
@@ -162,8 +163,9 @@ class VertexPlotBase(PlotBase):
             print("about to extract ds_tfj info")
 
             # extract track information
-            ds_tfj = hdf_file[sample.df_name][:100000]
-            ds_tfj = ds_tfj[idx]
+            ds_tfj = hdf_file[sample.df_name][idx]
+            #ds_tfj = hdf_file[sample.df_name][:100000]  # only if too many to load in memory
+            #ds_tfj = ds_tfj[idx]
 
             ds_tfj_jet = ds_tfj[jet_num]  # Load the entire jet_num row once into memory
             
