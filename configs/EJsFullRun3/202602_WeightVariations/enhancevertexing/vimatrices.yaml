@@ -21,11 +21,11 @@ plots:
   vertex:
     class: plotter.plot_classes.vertex_plot_9labels.VertexPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/WeightComparison/enhancevertexing/VImatrices/0jet20-VImat.pdf
-    jet_num: 20
+    file_name: ../plots/EJsFullRun3/WeightComparison/enhancevertexing/VImatrices/1jet7-VImat.pdf
+    jet_num: 7
     pEJ_min: 0.98
     pEJ_max: 1.0
-    is_Disp: 0 # 0 for truth prompt jet, 1 for truth emerging jet
+    is_Disp: 1 # 0 for truth prompt jet, 1 for truth emerging jet
     zoom: False
     style:
       <<: *style

@@ -1,0 +1,38 @@
+output_dir: output
+
+style: &style
+  ylabel: ""
+  xlabel: ""
+  figsize: !!python/tuple [6, 6]
+  use_atlas_tag: True
+  #atlas_brand: ""
+  #atlas_first_tag: "Simulation Internal"
+  atlas_second_tag: "equalcontrib, tracks of mistagged Emerging Jets, $\\sqrt{{s}}=13.6$ TeV"
+  y_scale: 1.0
+  fontsize: 20
+  label_fontsize: 20
+  dpi: 300
+  atlas_tag_outside: True
+
+plots:
+  conf_mat:
+    class: plotter.plot_classes.confusion_matrix_ext9Labels_plot.ConfMatPlotBase
+    samples:
+      path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
+      label: 'equalcontrib'
+      df_name: tracks
+    task_type: track_origin # two options are track_origin, jet_classification
+    file_name: ../plots/EJsFullRun3/WeightComparison/equalcontrib/confusion_mistaggedEJ.pdf
+    only_mistagged_QCD: True
+    pEJ_min: 0.0
+    pEJ_max: 0.98
+    is_Disp: 1 # 0 for truth prompt jet, 1 for truth emerging jet
+    style:
+      <<: *style
+      xlabel: GN3ej prediction
+      ylabel: Truth labels
+      figsize: !!python/tuple [11,11]
+      show_entries: True
+      text_color_threshold: 0.6
+      colormap: GnBu
+      cbar_label: ""
