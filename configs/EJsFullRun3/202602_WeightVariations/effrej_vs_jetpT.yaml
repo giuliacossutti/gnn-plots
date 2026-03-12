@@ -3,12 +3,12 @@ output_dir: output
 samples: &samples
   GN3ej_HPC:
     path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-    label: "Current GN3ej"
+    label: "Current GN3ej (leonardo)"
     reference: True
-#  GN3ej_AI_INFN:
-#    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
-#    label: "Current GN3ej AI_INFN"
-#    reference: False
+  GN3ej_AI_INFN:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+    label: "Current GN3ej (AI_INFN)"
+    reference: False
   EqualContrib:
     path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
     label: "equalcontrib"
@@ -41,8 +41,8 @@ plots:
   jetpt_perf:
     class: plotter.plot_classes.jetpt_perf_plot.JetPtPerfPlotBase
     samples: *samples
-    sig_eff_filename: ../plots/EJsFullRun3/WeightComparison/EJ_eff_vs_jetpT.pdf
-    bkg_rej_filename: ../plots/EJsFullRun3/WeightComparison/QCD_rej_vs_jetpT.pdf
+    sig_eff_filename: ../plots/EJsFullRun3/WeightComparison/EJ_eff_vs_jetpT_allcurrent.pdf
+    bkg_rej_filename: ../plots/EJsFullRun3/WeightComparison/QCD_rej_vs_jetpT_allcurrent.pdf
     working_point: 0.98
     binedges: [0.2,0.3,0.4,0.6,0.8,1.2,2.25]  # in TeV
     sig_eff_leg_loc: lower right

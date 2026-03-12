@@ -3,14 +3,14 @@ output_dir: output
 samples: &samples
   GN3ej_HPC:
     path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260127_FirstTrainingOnHPC/epoch=012-val_jet_loss=0.02551__test_9574840.pp_output_val.h5'
-    label: "Current GN3ej" #leonardo
+    label: "Current GN3ej (leonardo)" #leonardo
     reference: True
     df_name: jets
-#  GN3ej_AI_INFN:
-#    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
-#    label: "Current GN3ej AI_INFN"
-#    reference: False
-#    df_name: jets
+  GN3ej_AI_INFN:
+    path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20251113_FirstFold0Training/epoch=010-val_loss=0.02675__test_9574840.pp_output_val.h5'
+    label: "Current GN3ej (AI_INFN)"
+    reference: False
+    df_name: jets
   EqualContrib:
     path: '/s3/giuliac/EJFullRun3/TrainingOutputs/20260220_EqualContrib/epoch=008-val_jet_loss=0.02648__test_9574840.pp_output_val.h5'
     label: "equalcontrib"
@@ -35,7 +35,7 @@ samples: &samples
 style: &style
   ylabel: ""
   xlabel: ""
-  figsize: !!python/tuple [7, 8]
+  figsize: !!python/tuple [7, 9] # [7, 8]
   use_atlas_tag: True
   #atlas_brand: ""
   #atlas_first_tag: "Simulation Internal"
@@ -49,13 +49,13 @@ plots:
   roc:
     class: plotter.plot_classes.roc_plot.RocPlotBase
     samples: *samples
-    file_name: ../plots/EJsFullRun3/WeightComparison/roc.pdf
+    file_name: ../plots/EJsFullRun3/WeightComparison/roc_allcurrent.pdf
     target_label: isDisplaced
     tagger_output: GN3ej-fold0
     range: !!python/tuple [0.80, 1, 100]
     leg_inside: True
     leg_fontsize: 12
-    reference_label: "current GN3ej"
+    reference_label: "current GN3ej (leonardo)"
     show_cuts: True
     cut_values: [0.98]  # or None
     #cut_values: [0.90,0.98,0.99]  # or None
